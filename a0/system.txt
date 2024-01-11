@@ -1,4 +1,40 @@
-Unknown command: "systeminformation@latest"
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
+│  SYSTEMINFORMATION                                                     Version: 5.21.22 │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
 
-To see a list of supported npm commands, run:
-  npm help
+Operating System:
+──────────────────────────────────────────────────────────────────────────────────────────
+Platform         : Windows
+Distro           : Microsoft Windows 10 Home
+Release          : 10.0.19045
+Codename         : 
+Kernel           : 10.0.19045
+Arch             : x64
+Hostname         : DESKTOP-PU2IA38
+Codepage         : 437
+Build            : 19045
+Hypervisor       : 
+RemoteSession    : 
+
+System:
+──────────────────────────────────────────────────────────────────────────────────────────
+Manufacturer     : HP
+Model            : HP ENVY x360 Convertible 15-ed0xxx
+Version          : Type1ProductConfigId
+Virtual          : 
+
+CPU:
+──────────────────────────────────────────────────────────────────────────────────────────
+Manufacturer     : Intel
+Brand            : Core™ i5-1035G1
+Family           : 6
+Model            : 126
+Stepping         : 5
+Speed            : 1
+Cores            : 8
+PhysicalCores    : 4
+PerformanceCores : 8
+EfficiencyCores  : 
+Processors       : 1
+Socket           : Other
+
