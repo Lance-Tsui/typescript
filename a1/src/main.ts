@@ -43,6 +43,8 @@ import { Cat } from "./cat";
 
 import { Star } from "./star"
 
+import { Circle } from "./circle"
+
 import { Square } from "./square";
 
 import { DisplayList } from "./displaylist";
@@ -79,6 +81,10 @@ function draw(width?: number, height?: number) {
   displayList.add(cat1);
   displayList.add(cat2);
   displayList.add(star);
+
+  const fillColors = ['#FFDDC1', '#FFABAB', '#FFC3A0', '#FFD1BA', '#E7FFAC'];
+  const circle = new Circle(x, y * 2, 50, 10, 'black', 3, fillColors);
+  displayList.add(circle);
 
   displayList.add(new Square(60, 50, 50, "white", "black", 3));
   displayList.add(new Square(140, 50, 50, "white", "black", 3));
