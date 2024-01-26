@@ -71,13 +71,11 @@ function draw(width?: number, height?: number) {
   gc.fillStyle = "white";
   gc.fillText("1 pair: Press SPACE to play", x, y);
 
-  
-
   const displayList = new DisplayList();
 
   const cat1 = new Cat(100, 60, "#CEA242");
   const cat2 = new Cat(300, 60, "#CEA242");
-  const star = new Star(100, 100, 50, "gold", "black", 3);
+  const star = new Star(100, 100, 50, 20, 6, "gold", "black", 3);
   displayList.add(cat1);
   displayList.add(cat2);
   displayList.add(star);

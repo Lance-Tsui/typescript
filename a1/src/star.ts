@@ -1,29 +1,31 @@
 import { Drawable } from "./drawable";
 
 export class Star implements Drawable {
-    constructor(private x: number, private y: number, private radius: number, private fillColor: string, private strokeColor: string,
-        private linewidth: number) {}
-  
-    draw(ctx: CanvasRenderingContext2D): void {
+  constructor(private x: number, private y: number, private outerRadius: number, private innerRadius: number, private points: number, private fillColor: string, private strokeColor: string, private linewidth: number) {}
+
+  draw(ctx: CanvasRenderingContext2D): void {
+      const step = Math.PI / this.points;
+
+      let startAngle = Math.PI / 2;
+      let angleOffset = Math.PI / this.points;
+
       ctx.beginPath();
-  
-      for (let i = 0; i < 5; i++) {
-        ctx.lineTo(
-          this.x + this.radius * Math.cos((18 + i * 72) * Math.PI / 180),
-          this.y - this.radius * Math.sin((18 + i * 72) * Math.PI / 180)
-        );
-        ctx.lineTo(
-          this.x + this.radius * Math.cos((54 + i * 72) * Math.PI / 180) * 0.5,
-          this.y - this.radius * Math.sin((54 + i * 72) * Math.PI / 180) * 0.5
-        );
+      for (let i = 0; i < this.points; i++) {
+          ctx.lineTo(
+              this.x + this.outerRadius * Math.cos(startAngle - angleOffset + step * i * 2),
+              this.y + this.outerRadius * Math.sin(startAngle - angleOffset + step * i * 2)
+          );
+          ctx.lineTo(
+              this.x + this.innerRadius * Math.cos(startAngle - angleOffset + step * (i * 2 + 1)),
+              this.y + this.innerRadius * Math.sin(startAngle - angleOffset + step * (i * 2 + 1))
+          );
       }
-  
       ctx.closePath();
+
       ctx.fillStyle = this.fillColor;
       ctx.fill();
-
       ctx.strokeStyle = this.strokeColor;
       ctx.lineWidth = this.linewidth;
       ctx.stroke();
-    }
+  }
 }
