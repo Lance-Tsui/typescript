@@ -1,7 +1,7 @@
 import { Drawable } from "./drawable";
 
 export class Cat implements Drawable {
-  constructor(public x: number, public y: number, public scale = 1.0) {}
+  constructor(public x: number, public y: number, public color: string, public scale = 1.0) {}
 
   draw(gc: CanvasRenderingContext2D) {
     gc.save();
@@ -9,7 +9,7 @@ export class Cat implements Drawable {
     gc.translate(this.x, this.y);
     gc.scale(this.scale, this.scale);
 
-    gc.fillStyle = "#CEA242";
+    gc.fillStyle = this.color;
     gc.strokeStyle = "white";
     gc.lineWidth = 8;
 

@@ -41,7 +41,9 @@ startSimpleKit();
 
 import { Cat } from "./cat";
 
-import { Square} from "./square";
+import { Star } from "./star"
+
+import { Square } from "./square";
 
 import { DisplayList } from "./displaylist";
 
@@ -73,10 +75,12 @@ function draw(width?: number, height?: number) {
 
   const displayList = new DisplayList();
 
-  const cat1 = new Cat(100, 60);
-  const cat2 = new Cat(300, 60);
+  const cat1 = new Cat(100, 60, "#CEA242");
+  const cat2 = new Cat(300, 60, "#CEA242");
+  const star = new Star(100, 100, 50, "gold", "black", 3);
   displayList.add(cat1);
   displayList.add(cat2);
+  displayList.add(star);
 
   displayList.add(new Square(60, 50, 50, "white", "black", 3));
   displayList.add(new Square(140, 50, 50, "white", "black", 3));
