@@ -17,22 +17,19 @@ import {
 
 import { Point2, point, random } from "simplekit/utility";
 
-// state to track canvas size
-let width = 0;
-let height = 0;
 
 
 // handle events
 setSKEventListener((e) => {
   switch (e.type) {
+    case "keyup":
+      break;
+    case "keydown":
+      break;
     case "resize":
       const re = e as SKResizeEvent;
-      // update local canvas size state
-      // (SimpleKit always sends resize event before first draw)
-      width = re.width;
-      height = re.height;
 
-      draw(width, height);
+      draw(re.width, re.height);
 
       break;
   }
@@ -49,6 +46,7 @@ import { Square } from "./square";
 
 import { DisplayList } from "./displaylist";
 
+import { Message } from "./message";
 
 function draw(width?: number, height?: number) {
   // create canvas element and add it to the DOM
@@ -71,23 +69,27 @@ function draw(width?: number, height?: number) {
   gc.textAlign = "center";
   gc.textBaseline = "middle";
   gc.fillStyle = "white";
-  gc.fillText("1 pair: Press SPACE to play", x, y);
+  const message = new Message(1);
+  gc.fillText(message.getMessage(), x, y);
 
   const displayList = new DisplayList();
 
-  const cat1 = new Cat(100, 60, "#CEA242");
-  const cat2 = new Cat(300, 60, "#CEA242");
+
+  const cat1 = new Cat(x - 50 , y * 2, "#CEA242");
+  const cat2 = new Cat(x + 50, y * 2, "#CEA242");
   const star = new Star(100, 100, 50, 20, 6, "gold", "black", 3);
+
+  
   displayList.add(cat1);
   displayList.add(cat2);
-  displayList.add(star);
+  // displayList.add(star);
 
   const fillColors = ['#FFDDC1', '#FFABAB', '#FFC3A0', '#FFD1BA', '#E7FFAC'];
-  const circle = new Circle(x, y * 2, 50, 10, 'black', 3, fillColors);
-  displayList.add(circle);
+  const circle = new Circle(x, y * 2, 48, 12, 'black', 3, fillColors);
+  // displayList.add(circle);
 
-  displayList.add(new Square(60, 50, 50, "white", "black", 3));
-  displayList.add(new Square(140, 50, 50, "white", "black", 3));
+  // displayList.add(new Square(60, 50, 80, "white", "black", 3));
+  // displayList.add(new Square(190, 50, 80, "white", "black", 3));
   displayList.draw(gc);
   
   }

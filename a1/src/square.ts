@@ -7,7 +7,8 @@ export class Square implements Drawable {
       public size: number,
       public fill?: string, // optional parameters
       public stroke?: string,
-      public lineWidth?: number
+      public lineWidth?: number,
+      public innerSquareColor?: string
     ) {}
   
     draw(gc: CanvasRenderingContext2D) {
@@ -23,5 +24,19 @@ export class Square implements Drawable {
       );
       if (this.fill) gc.fill();
       if (this.lineWidth) gc.stroke();
+
+      if (this.innerSquareColor) {
+        gc.beginPath();
+        gc.fillStyle = this.innerSquareColor;
+
+        let innerSquareSize = 70;
+        gc.rect(
+          this.x - innerSquareSize / 2,
+          this.y - innerSquareSize / 2,
+          innerSquareSize,
+          innerSquareSize
+        );
+        gc.fill();
+      }
     }
   }
