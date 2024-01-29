@@ -16,6 +16,7 @@ export class Game {
     canvas: HTMLCanvasElement | null;
     gc: CanvasRenderingContext2D | null;
     isPlayMode: boolean;
+    message: Message;
 
     constructor() {
         this.canvas = document.createElement("canvas");
@@ -25,7 +26,7 @@ export class Game {
         this.canvas.style.top = "0";
         this.canvas.style.left = "0";
         this.gc = this.canvas.getContext("2d");
-
+        this.message = new Message(1);
         this.isPlayMode = false;
     }
 
@@ -38,17 +39,17 @@ export class Game {
             this.gc.textAlign = "center";
             this.gc.textBaseline = "middle";
             this.gc.fillStyle = "white";
-            const message = new Message(1);
+
             if (numPairs) {
-                message.updateNumPairs(numPairs);
+                this.message.updateNumPairs(numPairs);
             }
-            this.gc.fillText(message.getMessage(), x, y);
+            this.gc.fillText(this.message.getMessage(), x, y);
 
             const displayList = new DisplayList();
 
 
-            const cat1 = new Cat(x - 50 , y * 2, "#CEA242");
-            const cat2 = new Cat(x + 50, y * 2, "#CEA242");
+            const cat1 = new Cat(x - 50 , y * 2, "#CEA242", false);
+            const cat2 = new Cat(x + 50, y * 2, "#CEA242", false);
             const star = new Star(100, 100, 50, 20, 6, "gold", "black", 3);
 
             
@@ -65,6 +66,29 @@ export class Game {
             displayList.draw(this.gc);
         }
     }
+
+    playGame(numPairs?: number){
+        if (this.gc && this.canvas) {
+            const x = this.canvas.width / 2;
+            const y = this.canvas.height / 4;
+            if (numPairs) {
+                this.message.updateNumPairs(numPairs);
+            }
+            this.gc.fillText(this.message.getMessage(), x, y);
+            const displayList = new DisplayList();
+
+
+            const cat1 = new Cat(x - 50 , y * 2, "#CEA242", true);
+            const cat2 = new Cat(x + 50, y * 2, "#CEA242", true);
+            const star = new Star(100, 100, 50, 20, 6, "gold", "black", 3);
+
+            
+            displayList.add(cat1);
+            displayList.add(cat2);
+            displayList.draw(this.gc);
+        }
+    }
+
 
     togglePlayMode() {
         this.isPlayMode = !this.isPlayMode;
@@ -85,7 +109,9 @@ export class Game {
             this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
             if (!this.isPlayMode) {
 
-                this.initGame(); // Position these cards as needed
+                this.initGame();
+            } else {
+                this.playGame();
             }
         }
     }
