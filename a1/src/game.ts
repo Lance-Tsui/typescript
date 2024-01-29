@@ -131,10 +131,69 @@ export class Game {
 
     playGame(click?: boolean, mousex?: number, mousey?: number, numPairs?: number){
         if (this.gc && this.canvas) {
+            this.displayList.clear();
             this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            const x = this.canvas.width / 2;
-            const y = this.canvas.height / 4;
+            
             this.gameText(numPairs);
+
+            const cols = this.calculateEvenColumns(this.canvas.width);
+            if (!numPairs) {
+                numPairs = 1;
+            } else {
+                this.numPairs = numPairs;
+                this.message.updateNumPairs(numPairs);
+            }
+
+            
+            this.gameText(numPairs);
+            const cardWidth = 86;
+            const cardHeight = 86;
+            const gap = 10;
+            
+
+            const totalWidth = cols * (cardWidth + gap) ; // 修正 totalWidth 的计算s
+
+            for (let i = 0; i < this.numPairs * 2; i++) {
+                const row = Math.floor(i / cols);
+                const col = i % cols;
+            
+                // 对于每一行，计算这一行的卡片总宽度
+                const cardsInThisRow = Math.min(cols, this.numPairs * 2 - row * cols);
+                const totalWidthThisRow = (cardsInThisRow - 1) * (cardWidth + gap);
+            
+                // 计算这一行的起始 x 坐标
+                const startXThisRow = (this.canvas.width - totalWidthThisRow) / 2;
+                
+                // 计算卡片的 x 和 y 坐标
+                const x = startXThisRow + col * (cardWidth + gap);
+                const y = this.canvas.height / 2 + row * (cardHeight + gap);
+            
+                const card = new Cat(x, y, "#CEA242", true, false);
+                this.displayList.add(card);
+                if (click) {
+                    if(mousex && mousey) {
+    
+                        this.displayList.forEach(item => {
+                            if (item.isMouseOver(mousex, mousey)) {
+                                item.setHidden(false);
+                            }
+                        });
+    
+                    }
+                } else {
+                    if(mousex && mousey) {
+                        this.displayList.forEach(item => item.setHover(false));
+    
+                        this.displayList.forEach(item => {
+                            if (item.isMouseOver(mousex, mousey)) {
+                                item.setHover(true);
+                            }
+                        });
+    
+                    }
+                }
+            }
+            this.displayList.draw(this.gc);
             /*
             const displayList = new DisplayList();
             
@@ -194,6 +253,10 @@ export class Game {
         if (this.mode == "start") {
             this.initGame(Math.max(this.numPairs - 1, 1));
         }
+    }
+
+    switchMode() {
+        this.displayList.clear();
     }
 
     updateCanvas(width?: number, height?: number, input?: string) {

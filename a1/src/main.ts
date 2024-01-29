@@ -38,6 +38,7 @@ setSKEventListener((e) => {
     case "keydown":
       const keydown = e as SKKeyboardEvent;
       if (keydown.key === ' ') {
+        game.switchMode();
         game.toggleMode("play");
       }
       if (keydown.key === 'q') {
