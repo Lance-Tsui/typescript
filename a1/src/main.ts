@@ -26,7 +26,13 @@ setSKEventListener((e) => {
     case "mousemove":
       const mouse = e as MouseEvent;
       if (game.isPlayMode) {
-        game.playGame(mouse.x, mouse.y);
+        game.playGame(false, mouse.x, mouse.y);
+      }
+      break;
+    case "click":
+      const click = e as MouseEvent;
+      if (game.isPlayMode) {
+        game.playGame(true, click.x, click.y);
       }
       break;
     case "keydown":

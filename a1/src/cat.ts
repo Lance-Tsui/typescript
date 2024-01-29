@@ -8,6 +8,10 @@ export class Cat implements Drawable {
     this.hover = hover;
   }
 
+  setHidden(hidden: boolean): void {
+    this.hidden = hidden;
+  }
+
   draw(gc: CanvasRenderingContext2D) {
     gc.save();
     if (!this.hidden) {

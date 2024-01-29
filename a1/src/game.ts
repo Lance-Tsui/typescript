@@ -17,6 +17,7 @@ export class Game {
     gc: CanvasRenderingContext2D | null;
     isPlayMode: boolean;
     message: Message;
+    displayList: DisplayList;
 
     constructor() {
         this.canvas = document.createElement("canvas");
@@ -28,6 +29,7 @@ export class Game {
         this.gc = this.canvas.getContext("2d");
         this.message = new Message(1);
         this.isPlayMode = false;
+        this.displayList = new DisplayList();
     }
 
     gameText(numPairs?: number){
@@ -76,8 +78,9 @@ export class Game {
         }
     }
 
-    playGame(mousex?: number, mousey?: number, numPairs?: number){
+    playGame(click?: boolean, mousex?: number, mousey?: number, numPairs?: number){
         if (this.gc && this.canvas) {
+
             this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
             const x = this.canvas.width / 2;
             const y = this.canvas.height / 4;
@@ -92,19 +95,28 @@ export class Game {
             
             displayList.add(cat1);
             displayList.add(cat2);
+            if (click) {
+                if(mousex && mousey) {
 
-            if(mousex && mousey) {
-                displayList.forEach(item => item.setHover(false));
+                    displayList.forEach(item => {
+                        if (item.isMouseOver(mousex, mousey)) {
+                            item.setHidden(false);
+                        }
+                    });
 
-                displayList.forEach(item => {
-                    if (item.isMouseOver(mousex, mousey)) {
-                        item.setHover(true);
-                    }
-                });
+                }
+            } else {
+                if(mousex && mousey) {
+                    displayList.forEach(item => item.setHover(false));
 
-                
+                    displayList.forEach(item => {
+                        if (item.isMouseOver(mousex, mousey)) {
+                            item.setHover(true);
+                        }
+                    });
+
+                }
             }
-
             displayList.draw(this.gc);
         }
     }
@@ -133,9 +145,7 @@ export class Game {
         }
 
         if(this.gc && this.canvas) {
-            this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
             if (!this.isPlayMode) {
-
                 this.initGame();
             } else {
                 this.playGame();

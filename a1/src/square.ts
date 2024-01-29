@@ -44,4 +44,6 @@ export class Square implements Drawable {
       return true;
     }
     setHover(hover: boolean): void{}
+
+    setHidden(hidden: boolean): void{};
   }
