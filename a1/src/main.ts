@@ -25,23 +25,29 @@ setSKEventListener((e) => {
       break;
     case "mousemove":
       const mouse = e as MouseEvent;
-      if (game.isPlayMode) {
+      if (game.mode == "play") {
         game.playGame(false, mouse.x, mouse.y);
       }
       break;
     case "click":
       const click = e as MouseEvent;
-      if (game.isPlayMode) {
+      if (game.mode == "play") {
         game.playGame(true, click.x, click.y);
       }
       break;
     case "keydown":
       const keydown = e as SKKeyboardEvent;
       if (keydown.key === ' ') {
-        game.togglePlayMode(false);
+        game.toggleMode("play");
       }
       if (keydown.key === 'q') {
-        game.togglePlayMode(true);
+        game.toggleMode("start");
+      }
+      if (keydown.key === '+') {
+        game.addPairs();
+      }
+      if (keydown.key === '-') {
+        game.removePairs();
       }
       break;
     case "resize":
@@ -50,8 +56,12 @@ setSKEventListener((e) => {
       break;
   }
 });
+
 startSimpleKit();
 
 const game = new Game();
-game.initGame();
+
+
+
+
 

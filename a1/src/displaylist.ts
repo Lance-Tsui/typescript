@@ -20,4 +20,8 @@ export class DisplayList {
   forEach(callback: (drawable: Drawable, index: number, array: Drawable[]) => void) {
     this.list.forEach(callback);
   }
+
+  clear() {
+    this.list = [];
+  }
 }
