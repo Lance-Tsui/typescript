@@ -16,4 +16,8 @@ export class DisplayList {
       d.draw(gc);
     });
   }
+
+  forEach(callback: (drawable: Drawable, index: number, array: Drawable[]) => void) {
+    this.list.forEach(callback);
+  }
 }

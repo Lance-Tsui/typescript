@@ -2,12 +2,16 @@ import { Drawable } from "./drawable";
 import { Square } from "./square";
 
 export class Cat implements Drawable {
-  constructor(public x: number, public y: number, public color: string, public hidden: boolean) {}
+  constructor(public x: number, public y: number, public color: string, public hidden: boolean, public hover: boolean) {}
+
+  setHover(hover: boolean): void {
+    this.hover = hover;
+  }
 
   draw(gc: CanvasRenderingContext2D) {
-
     gc.save();
     if (!this.hidden) {
+
       const backgroundSquare = new Square(this.x, this.y, 80, "white", "black", 3);
       backgroundSquare.draw(gc);
 
@@ -62,10 +66,22 @@ export class Cat implements Drawable {
       gc.fill();
 
     }
+
     else {
+
       const backgroundSquare = new Square(this.x, this.y, 80, "white", "black", 3, "lightblue");
       backgroundSquare.draw(gc);
+      if (this.hover) {
+          gc.strokeStyle = 'yellow';
+          gc.lineWidth = 4;
+          gc.strokeRect(this.x - 43, this.y - 43, 86, 86);
+      }
     }
+
     gc.restore();
+  }
+
+  isMouseOver(mouseX: number, mouseY: number): boolean {
+      return mouseX >= this.x && mouseX <= this.x + 80 && mouseY >= this.y && mouseY <= this.y + 80;
   }
 }

@@ -28,4 +28,9 @@ export class Star implements Drawable {
       ctx.lineWidth = this.linewidth;
       ctx.stroke();
   }
+
+  isMouseOver(mouseX: number, mouseY: number): boolean {
+    return true;
+  }
+  setHover(hover: boolean): void{}
 }

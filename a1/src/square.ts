@@ -39,4 +39,9 @@ export class Square implements Drawable {
         gc.fill();
       }
     }
+
+    isMouseOver(mouseX: number, mouseY: number): boolean {
+      return true;
+    }
+    setHover(hover: boolean): void{}
   }

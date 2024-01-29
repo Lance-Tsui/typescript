@@ -30,6 +30,15 @@ export class Game {
         this.isPlayMode = false;
     }
 
+    gameText(numPairs?: number){
+        if(this.gc && this.canvas) {
+            if (numPairs) {
+                this.message.updateNumPairs(numPairs);
+            }
+            this.gc.fillText(this.message.getMessage(), this.canvas.width / 2, this.canvas.height / 4);
+        }
+    }
+
     initGame(numPairs?: number) {
         if (this.gc && this.canvas) {
             // get graphics context
@@ -48,8 +57,8 @@ export class Game {
             const displayList = new DisplayList();
 
 
-            const cat1 = new Cat(x - 50 , y * 2, "#CEA242", false);
-            const cat2 = new Cat(x + 50, y * 2, "#CEA242", false);
+            const cat1 = new Cat(x - 50 , y * 2, "#CEA242", false, false);
+            const cat2 = new Cat(x + 50, y * 2, "#CEA242", false, false);
             const star = new Star(100, 100, 50, 20, 6, "gold", "black", 3);
 
             
@@ -67,27 +76,40 @@ export class Game {
         }
     }
 
-    playGame(numPairs?: number){
+    playGame(mousex?: number, mousey?: number, numPairs?: number){
         if (this.gc && this.canvas) {
+            this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
             const x = this.canvas.width / 2;
             const y = this.canvas.height / 4;
-            if (numPairs) {
-                this.message.updateNumPairs(numPairs);
-            }
-            this.gc.fillText(this.message.getMessage(), x, y);
+            this.gameText(numPairs);
             const displayList = new DisplayList();
+            
 
-
-            const cat1 = new Cat(x - 50 , y * 2, "#CEA242", true);
-            const cat2 = new Cat(x + 50, y * 2, "#CEA242", true);
+            const cat1 = new Cat(x - 50 , y * 2, "#CEA242", true, false);
+            const cat2 = new Cat(x + 50, y * 2, "#CEA242", true, false);
             const star = new Star(100, 100, 50, 20, 6, "gold", "black", 3);
 
             
             displayList.add(cat1);
             displayList.add(cat2);
+
+            if(mousex && mousey) {
+                displayList.forEach(item => item.setHover(false));
+
+                displayList.forEach(item => {
+                    if (item.isMouseOver(mousex, mousey)) {
+                        item.setHover(true);
+                    }
+                });
+
+                
+            }
+
             displayList.draw(this.gc);
         }
     }
+
+
 
 
     togglePlayMode() {

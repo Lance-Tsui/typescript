@@ -23,6 +23,12 @@ setSKEventListener((e) => {
   switch (e.type) {
     case "keyup":
       break;
+    case "mousemove":
+      const mouse = e as MouseEvent;
+      if (game.isPlayMode) {
+        game.playGame(mouse.x, mouse.y);
+      }
+      break;
     case "keydown":
       const keydown = e as SKKeyboardEvent;
       if (keydown.key === ' ') {

@@ -31,4 +31,10 @@ export class Circle implements Drawable {
         ctx.stroke();
       }
     }
+
+    isMouseOver(mouseX: number, mouseY: number): boolean {
+      return true;
+    }
+
+    setHover(hover: boolean): void{}
   }
