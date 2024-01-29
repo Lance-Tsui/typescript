@@ -112,9 +112,14 @@ export class Game {
 
 
 
-    togglePlayMode() {
-        this.isPlayMode = !this.isPlayMode;
-        this.updateCanvas();
+    togglePlayMode(mode: boolean) {
+        if (mode == false) {
+            this.isPlayMode = true;
+            this.updateCanvas();
+        } else {
+            this.isPlayMode = false;
+            this.updateCanvas();
+        }
     }
 
     updateCanvas(width?: number, height?: number) {

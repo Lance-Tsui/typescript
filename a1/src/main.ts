@@ -32,7 +32,10 @@ setSKEventListener((e) => {
     case "keydown":
       const keydown = e as SKKeyboardEvent;
       if (keydown.key === ' ') {
-        game.togglePlayMode();
+        game.togglePlayMode(false);
+      }
+      if (keydown.key === 'q') {
+        game.togglePlayMode(true);
       }
       break;
     case "resize":
