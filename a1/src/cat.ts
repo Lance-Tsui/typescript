@@ -2,7 +2,9 @@ import { Drawable } from "./drawable";
 import { Square } from "./square";
 
 export class Cat implements Drawable {
-  constructor(public x: number, public y: number, public color: string, public hidden: boolean, public hover: boolean) {}
+  constructor(public x: number, public y: number, public color: string, public position: string, 
+    public hidden: boolean, public hover: boolean) {
+    }
 
   setHover(hover: boolean): void {
     this.hover = hover;
@@ -63,14 +65,21 @@ export class Cat implements Drawable {
       gc.stroke();
 
       // eyebow
+      let eyeoffset = 0
+
+      if (this.position == "gauche") {
+        eyeoffset = -3;
+      } else if (this.position == "droite") {
+        eyeoffset = 3;
+      }
+
       gc.fillStyle = "black";
       gc.beginPath();
-
-      gc.arc(-12, -6.75, 3.75, 0, Math.PI * 2);
+      gc.arc(-12 + eyeoffset, -6.75, 3.75, 0, Math.PI * 2);
       gc.fill();
 
       gc.beginPath();
-      gc.arc(12, -6.75, 3.75, 0, Math.PI * 2);
+      gc.arc(12 + eyeoffset, -6.75, 3.75, 0, Math.PI * 2);
       gc.fill();
 
     }

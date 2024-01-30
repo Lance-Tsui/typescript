@@ -11,6 +11,8 @@ import { DisplayList } from "./displaylist";
 
 import { Message } from "./message";
 
+import { CATCOLORS, CATEYE } from './constant';
+
 
 export class Game {
     canvas: HTMLCanvasElement | null;
@@ -82,8 +84,6 @@ export class Game {
             const cardWidth = 86;
             const cardHeight = 86;
             const gap = 10;
-            const colors = ['#CEA242', '#fc1900', '#0279f7', '#05301a', '#797a7a'];
-            
 
             const totalWidth = cols * (cardWidth + gap) ; // 修正 totalWidth 的计算s
 
@@ -103,8 +103,9 @@ export class Game {
                 const x = startXThisRow + col * (cardWidth + gap);
                 const y = this.canvas.height / 2 + row * (cardHeight + gap);
                 if (pair < 5){
-                    const color = colors[Math.floor(i / 2)];
-                    const cat = new Cat(x, y, color, false, false);
+                    const color = CATCOLORS[Math.floor(i / 2)];
+                    const cateye = CATEYE[Math.floor(i / 2)];
+                    const cat = new Cat(x, y, color, cateye, false, false);
                     this.displayList.add(cat);
                 }
 
@@ -153,9 +154,8 @@ export class Game {
                 const cardWidth = 86;
                 const cardHeight = 86;
                 const gap = 10;
-                const colors = ['#CEA242', '#fc1900', '#0279f7', '#05301a', '#797a7a'];
 
-                for (let i = 0; i < this.numPairs * 2; i++) {
+                for (var i = 0; i < this.numPairs * 2; i++) {
                     const row = Math.floor(i / cols);
                     const col = i % cols;
                 
@@ -166,9 +166,18 @@ export class Game {
                     
                     const x = startXThisRow + col * (cardWidth + gap);
                     const y = this.canvas.height / 2 + row * (cardHeight + gap);
-                
-                    const color = colors[i % colors.length];
-                    const card = new Cat(x, y, color, true, false);
+                    var color = '';
+                    var cateye = '';
+                    
+                    if (i % 2 == 0) {
+                        color = CATCOLORS[i % 5];
+                        cateye = CATEYE[i % 5];
+                    } else {
+                        color = CATCOLORS[(i - 1) % 5];
+                        cateye = CATEYE[(i - 1) % 5];
+                    }
+
+                    const card = new Cat(x, y, color, cateye, true, false);
                     this.displayList.add(card);
                 }
                 this.displayList.draw(this.gc);
