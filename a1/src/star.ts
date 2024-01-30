@@ -55,13 +55,17 @@ export class Star implements Drawable {
   }
 
   isMouseOver(mouseX: number, mouseY: number): boolean {
-    return true;
+    return mouseX >= this.x - 40 && mouseX <= this.x + 40 && mouseY >= this.y - 40 && mouseY <= this.y + 40;
   }
-  setHover(hover: boolean): void{}
+  setHover(hover: boolean): void{
+    this.hover = hover;
+  }
 
-  setHidden(hidden: boolean): void{};
+  setHidden(hidden: boolean): void{
+    this.hidden = hidden;
+  };
 
   isHidden(): boolean {
-    return true;
+    return this.hidden;
   }
 }

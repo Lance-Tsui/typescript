@@ -43,7 +43,8 @@ export class Square implements Drawable {
     isMouseOver(mouseX: number, mouseY: number): boolean {
       return true;
     }
-    setHover(hover: boolean): void{}
+    setHover(hover: boolean): void{
+    }
 
     setHidden(hidden: boolean): void{};
 
