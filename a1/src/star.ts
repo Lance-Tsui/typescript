@@ -1,7 +1,9 @@
 import { Drawable } from "./drawable";
 
 export class Star implements Drawable {
-  constructor(private x: number, private y: number, private outerRadius: number, private innerRadius: number, private points: number, private fillColor: string, private strokeColor: string, private linewidth: number) {}
+  constructor(public x: number, public y: number, public outerRadius: number, public innerRadius: number,
+     public points: number, public fillColor: string, public strokeColor: string, public linewidth: number, 
+     public hidden: boolean, public hover: boolean) {}
 
   draw(ctx: CanvasRenderingContext2D): void {
       const step = Math.PI / this.points;

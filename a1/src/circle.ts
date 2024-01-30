@@ -1,21 +1,10 @@
 import { Drawable } from "./drawable";
 
 export class Circle implements Drawable {
-    private centerX: number;
-    private centerY: number;
-    private maxRadius: number;
-    private step: number;
-    private strokeColor: string;
-    private lineWidth: number;
-    private fillColors: string[];
-    constructor(centerX: number, centerY: number, maxRadius: number, step: number, strokeColor: string = '#000', lineWidth: number = 3, fillColors: string[] = []) {
-      this.centerX = centerX;
-      this.centerY = centerY;
-      this.maxRadius = maxRadius;
-      this.step = step;
-      this.strokeColor = strokeColor;
-      this.lineWidth = lineWidth;
-      this.fillColors = fillColors;
+
+    constructor(public centerX: number, public centerY: number, public maxRadius: number, public step: number, 
+      public strokeColor: string = '#000', public lineWidth: number = 3, public fillColors: string[] = [],
+      public hidden: boolean, public hover: boolean) {
     }
   
     draw(ctx: CanvasRenderingContext2D) {

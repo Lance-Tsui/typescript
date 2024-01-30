@@ -88,6 +88,7 @@ export class Game {
             const totalWidth = cols * (cardWidth + gap) ; // 修正 totalWidth 的计算s
 
             for (let i = 0; i < this.numPairs * 2; i++) {
+                var pair = Math.floor(i / 2);
                 const row = Math.floor(i / cols);
                 const col = i % cols;
             
@@ -101,33 +102,25 @@ export class Game {
                 // 计算卡片的 x 和 y 坐标
                 const x = startXThisRow + col * (cardWidth + gap);
                 const y = this.canvas.height / 2 + row * (cardHeight + gap);
-            
-                const color = colors[Math.floor(i / 2)];
-                const card = new Cat(x, y, color, false, false);
-                this.displayList.add(card);
+                if (pair < 5){
+                    const color = colors[Math.floor(i / 2)];
+                    const cat = new Cat(x, y, color, false, false);
+                    this.displayList.add(cat);
+                }
+
+                else if (pair < 10) {
+                    const fillColors = ['#FFDDC1', '#FFABAB', '#FFC3A0', '#FFD1BA', '#E7FFAC'];
+                    const circle = new Circle(x, y, 40, 10, 'black', 3, fillColors, false, false);
+                    this.displayList.add(circle);
+                } else {
+                    const star = new Star(x, y, 35, 13, 6, "gold", "black", 3, false, false);
+                    this.displayList.add(star);
+                }
+                //const fillColors = ['#FFDDC1', '#FFABAB', '#FFC3A0', '#FFD1BA', '#E7FFAC'];
+                //const circle = new Circle(x, y * 2, 48, 12, 'black', 3, fillColors);
+                //const star = new Star(100, 100, 50, 20, 6, "gold", "black", 3);
             }
 
-            
-            /*
-            const displayList = new DisplayList();
-
-
-            const cat1 = new Cat(x - 50 , y * 2, "#CEA242", false, false);
-            const cat2 = new Cat(x + 50, y * 2, "#CEA242", false, false);
-            const star = new Star(100, 100, 50, 20, 6, "gold", "black", 3);
-
-            
-            displayList.add(cat1);
-            displayList.add(cat2);
-            // displayList.add(star);
-
-            const fillColors = ['#FFDDC1', '#FFABAB', '#FFC3A0', '#FFD1BA', '#E7FFAC'];
-            const circle = new Circle(x, y * 2, 48, 12, 'black', 3, fillColors);
-            // displayList.add(circle);
-
-            // displayList.add(new Square(60, 50, 80, "white", "black", 3));
-            // displayList.add(new Square(190, 50, 80, "white", "black", 3));
-            */
             this.displayList.draw(this.gc);
         }
     }
