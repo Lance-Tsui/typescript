@@ -11,7 +11,7 @@ import { DisplayList } from "./displaylist";
 
 import { Message } from "./message";
 
-import { CATCOLORS, CATEYE } from './constant';
+import { CATCOLORS, CATEYE, FILLCOLORS, LINECLR, RADSTEP } from './constant';
 
 
 export class Game {
@@ -110,8 +110,11 @@ export class Game {
                 }
 
                 else if (pair < 10) {
-                    const fillColors = ['#FFDDC1', '#FFABAB', '#FFC3A0', '#FFD1BA', '#E7FFAC'];
-                    const circle = new Circle(x, y, 40, 10, 'black', 3, fillColors, false, false);
+                    const outrad = RADSTEP[Math.floor(i / 2) - 5][0];
+                    const innrad = RADSTEP[Math.floor(i / 2) - 5][1];
+                    const lnclr = LINECLR[Math.floor(i / 2) - 5]
+                    const fillcolor = FILLCOLORS[Math.floor(i / 2) - 5];
+                    const circle = new Circle(x, y, outrad, innrad, lnclr, 3, fillcolor, false, false);
                     this.displayList.add(circle);
                 } else {
                     const star = new Star(x, y, 35, 13, 6, "gold", "black", 3, false, false);
