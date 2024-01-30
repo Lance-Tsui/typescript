@@ -93,7 +93,6 @@ export class Game {
             this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.displayList.clear();
             const cols = this.calculateEvenColumns(this.canvas.width);
-            console.log(cols);
             if (!numPairs) {
                 numPairs = 1;
             } else {
@@ -107,8 +106,6 @@ export class Game {
             const cardWidth = 86;
             const cardHeight = 86;
             const gap = 10;
-
-            const totalWidth = cols * (cardWidth + gap) ; // 修正 totalWidth 的计算s
 
             for (let i = 0; i < this.numPairs * 2; i++) {
                 var pair = Math.floor(i / 2);
@@ -182,6 +179,7 @@ export class Game {
                 const gap = 10;
 
                 for (var i = 0; i < this.numPairs * 2; i++) {
+                    var pair = Math.floor(i / 2);
                     const row = Math.floor(i / cols);
                     const col = i % cols;
                 
@@ -192,20 +190,28 @@ export class Game {
                     
                     const x = startXThisRow + col * (cardWidth + gap);
                     const y = this.canvas.height / 3 + row * (cardHeight + gap);
-                    var color = '';
-                    var cateye = '';
-                    
-                    if (i % 2 == 0) {
-                        color = CATCOLORS[i % 5];
-                        cateye = CATEYE[i % 5];
-                    } else {
-                        color = CATCOLORS[(i - 1) % 5];
-                        cateye = CATEYE[(i - 1) % 5];
+                    if (pair < 5){
+                        const color = CATCOLORS[Math.floor(i / 2)];
+                        const cateye = CATEYE[Math.floor(i / 2)];
+                        const cat = new Cat(x, y, color, cateye, true, false);
+                        this.displayList.add(cat);
                     }
-
-                    const card = new Cat(x, y, color, cateye, true, false);
-                    this.displayList.add(card);
+    
+                    else if (pair < 10) {
+                        const outrad = RADSTEP[Math.floor(i / 2) - 5][0];
+                        const innrad = RADSTEP[Math.floor(i / 2) - 5][1];
+                        const lnclr = LINECLR[Math.floor(i / 2) - 5]
+                        const fillcolor = FILLCOLORS[Math.floor(i / 2) - 5];
+                        const circle = new Circle(x, y, outrad, innrad, lnclr, 3, fillcolor, true, false);
+                        this.displayList.add(circle);
+                    } else {
+                        const edge = EDGE[Math.floor(i / 2) - 10];
+                        const side = STARCLR[Math.floor(i / 2) - 10];
+                        const star = new Star(x, y, 35, 13, edge, side, "black", 3, true, false);
+                        this.displayList.add(star);
+                    }
                 }
+                console.log(this.displayList);
                 this.displayList.draw(this.gc);
             }
         }
@@ -237,6 +243,7 @@ export class Game {
     switchMode() {
         if (this.gc && this.canvas) {
             this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.displayList.clear();
             this.gameText(this.numPairs);
         }
     }
