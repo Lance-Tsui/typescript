@@ -11,7 +11,7 @@ import { DisplayList } from "./displaylist";
 
 import { Message } from "./message";
 
-import { CATCOLORS, CATEYE, FILLCOLORS, LINECLR, RADSTEP } from './constant';
+import { CATCOLORS, CATEYE, EDGE, FILLCOLORS, LINECLR, RADSTEP, STARCLR } from './constant';
 
 
 export class Game {
@@ -48,7 +48,7 @@ export class Game {
                 this.numPairs = numPairs;
                 this.message.updateNumPairs(this.numPairs);
             }
-            this.gc.fillText(this.message.getMessage(), this.canvas.width / 2, this.canvas.height / 4);
+            this.gc.fillText(this.message.getMessage(), this.canvas.width / 2, this.canvas.height / 5);
         }
     }
 
@@ -101,7 +101,7 @@ export class Game {
                 
                 // 计算卡片的 x 和 y 坐标
                 const x = startXThisRow + col * (cardWidth + gap);
-                const y = this.canvas.height / 2 + row * (cardHeight + gap);
+                const y = this.canvas.height / 3 + row * (cardHeight + gap);
                 if (pair < 5){
                     const color = CATCOLORS[Math.floor(i / 2)];
                     const cateye = CATEYE[Math.floor(i / 2)];
@@ -117,12 +117,12 @@ export class Game {
                     const circle = new Circle(x, y, outrad, innrad, lnclr, 3, fillcolor, false, false);
                     this.displayList.add(circle);
                 } else {
-                    const star = new Star(x, y, 35, 13, 6, "gold", "black", 3, false, false);
+                    const edge = EDGE[Math.floor(i / 2) - 10];
+                    const side = STARCLR[Math.floor(i / 2) - 10];
+                    const star = new Star(x, y, 35, 13, edge, side, "black", 3, false, false);
                     this.displayList.add(star);
                 }
-                //const fillColors = ['#FFDDC1', '#FFABAB', '#FFC3A0', '#FFD1BA', '#E7FFAC'];
-                //const circle = new Circle(x, y * 2, 48, 12, 'black', 3, fillColors);
-                //const star = new Star(100, 100, 50, 20, 6, "gold", "black", 3);
+
             }
 
             this.displayList.draw(this.gc);
@@ -168,7 +168,7 @@ export class Game {
                     const startXThisRow = (this.canvas.width - totalWidthThisRow) / 2;
                     
                     const x = startXThisRow + col * (cardWidth + gap);
-                    const y = this.canvas.height / 2 + row * (cardHeight + gap);
+                    const y = this.canvas.height / 3 + row * (cardHeight + gap);
                     var color = '';
                     var cateye = '';
                     
