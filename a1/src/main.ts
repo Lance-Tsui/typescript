@@ -22,6 +22,10 @@ import { Game } from "./game";
 setSKEventListener((e) => {
   switch (e.type) {
     case "keyup":
+      const keyup = e as SKKeyboardEvent;
+      if (keyup.key === 'x') {
+        game.exitCheat();
+      }
       break;
     case "mousemove":
       const mouse = e as MouseEvent;
@@ -49,6 +53,9 @@ setSKEventListener((e) => {
       }
       if (keydown.key === '-') {
         game.removePairs();
+      }
+      if (keydown.key === 'x') {
+        game.enterCheat();
       }
       break;
     case "resize":

@@ -1,6 +1,6 @@
 
 export interface Drawable {
-  isHidden(): unknown;
+  isHidden(): boolean;
   setHidden(hidden: boolean): void;
   setHover(hover: boolean): void;
   isMouseOver(mouseX: number, mouseY: number): boolean;

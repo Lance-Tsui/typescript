@@ -15,13 +15,14 @@ import { CATCOLORS, CATEYE, EDGE, FILLCOLORS, LINECLR, RADSTEP, STARCLR } from '
 
 
 export class Game {
-    canvas: HTMLCanvasElement | null;
-    gc: CanvasRenderingContext2D | null;
-    mode: string;
-    message: Message;
-    cardList: DisplayList;
-    displayList: DisplayList;
-    numPairs: number;
+    public canvas: HTMLCanvasElement | null;
+    public gc: CanvasRenderingContext2D | null;
+    public mode: string;
+    public message: Message;
+    public cardList: DisplayList;
+    public displayList: DisplayList;
+    public originalState: boolean[] = [];
+    public numPairs: number;
 
     constructor() {
         this.canvas = document.createElement("canvas");
@@ -48,7 +49,7 @@ export class Game {
                 this.numPairs = numPairs;
                 this.message.updateNumPairs(this.numPairs);
             }
-            this.gc.fillText(this.message.getMessage(), this.canvas.width / 2, this.canvas.height / 5);
+            this.gc.fillText(this.message.getMessage(), this.canvas.width / 2, this.canvas.height / 6);
         }
     }
 
@@ -64,6 +65,28 @@ export class Game {
         return columns;
     }
 
+    enterCheat() {
+        if (this.mode === 'play' && this.gc && this.canvas) {
+            this.originalState = this.displayList.map<boolean>(card => card.isHidden());
+            this.displayList.forEach(card => card.setHidden(false));
+            this.redrawCanvas();
+        }
+    }
+
+    exitCheat() {
+        if (this.mode === 'play' && this.gc && this.canvas) {
+            this.displayList.forEach((card, index) => card.setHidden(this.originalState[index]));
+            this.redrawCanvas();
+        }
+    }
+
+    redrawCanvas() {
+        if (this.gc && this.canvas) {
+            this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.gameText(this.numPairs);
+            this.displayList.draw(this.gc);
+        }
+    }
 
     initGame(numPairs?: number) {
         if (this.gc && this.canvas) {
