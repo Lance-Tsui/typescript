@@ -178,8 +178,10 @@ export class Game {
                 const cardHeight = 86;
                 const gap = 10;
 
+                var coordinatesList: [number, number][] = [];
+
                 for (var i = 0; i < this.numPairs * 2; i++) {
-                    var pair = Math.floor(i / 2);
+                    
                     const row = Math.floor(i / cols);
                     const col = i % cols;
                 
@@ -190,10 +192,18 @@ export class Game {
                     
                     const x = startXThisRow + col * (cardWidth + gap);
                     const y = this.canvas.height / 3 + row * (cardHeight + gap);
+                    coordinatesList.push([x,y]);
+                }
+
+                this.shuffleCoordinates(coordinatesList);
+
+
+                for (var i = 0; i < this.numPairs * 2; i++) {
+                    var pair = Math.floor(i / 2);
                     if (pair < 5){
                         const color = CATCOLORS[Math.floor(i / 2)];
                         const cateye = CATEYE[Math.floor(i / 2)];
-                        const cat = new Cat(x, y, color, cateye, true, false);
+                        const cat = new Cat(coordinatesList[i][0], coordinatesList[i][1], color, cateye, true, false);
                         this.displayList.add(cat);
                     }
     
@@ -202,20 +212,27 @@ export class Game {
                         const innrad = RADSTEP[Math.floor(i / 2) - 5][1];
                         const lnclr = LINECLR[Math.floor(i / 2) - 5]
                         const fillcolor = FILLCOLORS[Math.floor(i / 2) - 5];
-                        const circle = new Circle(x, y, outrad, innrad, lnclr, 3, fillcolor, true, false);
+                        const circle = new Circle(coordinatesList[i][0], coordinatesList[i][1], outrad, innrad, lnclr, 3, fillcolor, true, false);
                         this.displayList.add(circle);
                     } else {
                         const edge = EDGE[Math.floor(i / 2) - 10];
                         const side = STARCLR[Math.floor(i / 2) - 10];
-                        const star = new Star(x, y, 35, 13, edge, side, "black", 3, true, false);
+                        const star = new Star(coordinatesList[i][0], coordinatesList[i][1], 35, 13, edge, side, "black", 3, true, false);
                         this.displayList.add(star);
                     }
                 }
-                console.log(this.displayList);
                 this.displayList.draw(this.gc);
             }
         }
     }
+
+    shuffleCoordinates(coordinates:[number, number][] = []) {
+        for (let i = coordinates.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [coordinates[i], coordinates[j]] = [coordinates[j], coordinates[i]];
+        }
+    }
+    
 
 
     toggleMode(mode: string) {
