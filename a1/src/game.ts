@@ -82,6 +82,7 @@ export class Game {
             const cardWidth = 86;
             const cardHeight = 86;
             const gap = 10;
+            const colors = ['#CEA242', '#fc1900', '#0279f7', '#05301a', '#797a7a'];
             
 
             const totalWidth = cols * (cardWidth + gap) ; // 修正 totalWidth 的计算s
@@ -101,7 +102,8 @@ export class Game {
                 const x = startXThisRow + col * (cardWidth + gap);
                 const y = this.canvas.height / 2 + row * (cardHeight + gap);
             
-                const card = new Cat(x, y, "#CEA242", false, false);
+                const color = colors[Math.floor(i / 2)];
+                const card = new Cat(x, y, color, false, false);
                 this.displayList.add(card);
             }
 
@@ -158,6 +160,7 @@ export class Game {
                 const cardWidth = 86;
                 const cardHeight = 86;
                 const gap = 10;
+                const colors = ['#CEA242', '#fc1900', '#0279f7', '#05301a', '#797a7a'];
 
                 for (let i = 0; i < this.numPairs * 2; i++) {
                     const row = Math.floor(i / cols);
@@ -171,7 +174,8 @@ export class Game {
                     const x = startXThisRow + col * (cardWidth + gap);
                     const y = this.canvas.height / 2 + row * (cardHeight + gap);
                 
-                    const card = new Cat(x, y, "#CEA242", true, false);
+                    const color = colors[i % colors.length];
+                    const card = new Cat(x, y, color, true, false);
                     this.displayList.add(card);
                 }
                 this.displayList.draw(this.gc);

@@ -35,4 +35,8 @@ export class Star implements Drawable {
   setHover(hover: boolean): void{}
 
   setHidden(hidden: boolean): void{};
+
+  isHidden(): boolean {
+    return true;
+  }
 }
