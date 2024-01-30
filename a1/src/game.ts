@@ -78,6 +78,7 @@ export class Game {
 
             
             this.gameText(numPairs);
+
             const cardWidth = 86;
             const cardHeight = 86;
             const gap = 10;
@@ -129,106 +130,52 @@ export class Game {
         }
     }
 
-    playGame(click?: boolean, mousex?: number, mousey?: number, numPairs?: number){
+    
+
+    playGame(click?: boolean, mousex?: number, mousey?: number){
         if (this.gc && this.canvas) {
-            this.displayList.clear();
-            this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
             
-            this.gameText(numPairs);
-
             const cols = this.calculateEvenColumns(this.canvas.width);
-            if (!numPairs) {
-                numPairs = 1;
+            
+            if (click && mousex && mousey) {
+                this.displayList.forEach(item => {
+                    item.setHover(false);
+                    if (item.isMouseOver(mousex, mousey)) {
+
+                        item.setHidden(!item.isHidden());
+                    }
+                });
+                this.displayList.draw(this.gc);
+            } else if (mousex && mousey) {
+                this.displayList.forEach(item => {
+                    item.setHover(false);
+                    if (item.isMouseOver(mousex, mousey)) {
+                        item.setHover(true);
+                    }
+                });
+                this.displayList.draw(this.gc);
             } else {
-                this.numPairs = numPairs;
-                this.message.updateNumPairs(numPairs);
-            }
+                const cardWidth = 86;
+                const cardHeight = 86;
+                const gap = 10;
 
-            
-            this.gameText(numPairs);
-            const cardWidth = 86;
-            const cardHeight = 86;
-            const gap = 10;
-            
-
-            const totalWidth = cols * (cardWidth + gap) ; // 修正 totalWidth 的计算s
-
-            for (let i = 0; i < this.numPairs * 2; i++) {
-                const row = Math.floor(i / cols);
-                const col = i % cols;
-            
-                // 对于每一行，计算这一行的卡片总宽度
-                const cardsInThisRow = Math.min(cols, this.numPairs * 2 - row * cols);
-                const totalWidthThisRow = (cardsInThisRow - 1) * (cardWidth + gap);
-            
-                // 计算这一行的起始 x 坐标
-                const startXThisRow = (this.canvas.width - totalWidthThisRow) / 2;
+                for (let i = 0; i < this.numPairs * 2; i++) {
+                    const row = Math.floor(i / cols);
+                    const col = i % cols;
                 
-                // 计算卡片的 x 和 y 坐标
-                const x = startXThisRow + col * (cardWidth + gap);
-                const y = this.canvas.height / 2 + row * (cardHeight + gap);
-            
-                const card = new Cat(x, y, "#CEA242", true, false);
-                this.displayList.add(card);
-                if (click) {
-                    if(mousex && mousey) {
-    
-                        this.displayList.forEach(item => {
-                            if (item.isMouseOver(mousex, mousey)) {
-                                item.setHidden(false);
-                            }
-                        });
-    
-                    }
-                } else {
-                    if(mousex && mousey) {
-                        this.displayList.forEach(item => item.setHover(false));
-    
-                        this.displayList.forEach(item => {
-                            if (item.isMouseOver(mousex, mousey)) {
-                                item.setHover(true);
-                            }
-                        });
-    
-                    }
+                    const cardsInThisRow = Math.min(cols, this.numPairs * 2 - row * cols);
+                    const totalWidthThisRow = (cardsInThisRow - 1) * (cardWidth + gap);
+                
+                    const startXThisRow = (this.canvas.width - totalWidthThisRow) / 2;
+                    
+                    const x = startXThisRow + col * (cardWidth + gap);
+                    const y = this.canvas.height / 2 + row * (cardHeight + gap);
+                
+                    const card = new Cat(x, y, "#CEA242", true, false);
+                    this.displayList.add(card);
                 }
+                this.displayList.draw(this.gc);
             }
-            this.displayList.draw(this.gc);
-            /*
-            const displayList = new DisplayList();
-            
-
-            const cat1 = new Cat(x - 50 , y * 2, "#CEA242", true, false);
-            const cat2 = new Cat(x + 50, y * 2, "#CEA242", true, false);
-            const star = new Star(100, 100, 50, 20, 6, "gold", "black", 3);
-
-            
-            displayList.add(cat1);
-            displayList.add(cat2);
-            if (click) {
-                if(mousex && mousey) {
-
-                    displayList.forEach(item => {
-                        if (item.isMouseOver(mousex, mousey)) {
-                            item.setHidden(false);
-                        }
-                    });
-
-                }
-            } else {
-                if(mousex && mousey) {
-                    displayList.forEach(item => item.setHover(false));
-
-                    displayList.forEach(item => {
-                        if (item.isMouseOver(mousex, mousey)) {
-                            item.setHover(true);
-                        }
-                    });
-
-                }
-            }
-            displayList.draw(this.gc);
-            */
         }
     }
 
@@ -256,7 +203,10 @@ export class Game {
     }
 
     switchMode() {
-        this.displayList.clear();
+        if (this.gc && this.canvas) {
+            this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.gameText(this.numPairs);
+        }
     }
 
     updateCanvas(width?: number, height?: number, input?: string) {
@@ -268,10 +218,10 @@ export class Game {
 
         if(this.gc && this.canvas) {
 
-            if (this.mode != "play") {
+            if (this.mode == "start") {
                 this.initGame(this.numPairs);
             } else {
-                this.playGame();
+                this.playGame(undefined, undefined, undefined);
             }
         }
     }
