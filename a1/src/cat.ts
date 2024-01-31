@@ -3,7 +3,8 @@ import { Square } from "./square";
 
 export class Cat implements Drawable {
   constructor(public x: number, public y: number, public color: string, public position: string, 
-    public hidden: boolean, public hover: boolean) {
+    public hidden: boolean, public hover: boolean, public bgcolor?: string) {
+      this.bgcolor = bgcolor || "white";
     }
 
   setHover(hover: boolean): void {
@@ -18,11 +19,15 @@ export class Cat implements Drawable {
     return this.hidden;
   }
 
+  matches(other: Drawable): boolean {
+    return typeof(this) == typeof(other);
+  }
+
   draw(gc: CanvasRenderingContext2D) {
     gc.save();
     if (!this.hidden) {
 
-      const backgroundSquare = new Square(this.x, this.y, 80, "white", "black", 4);
+      const backgroundSquare = new Square(this.x, this.y, 80, this.bgcolor, "black", 4);
       backgroundSquare.draw(gc);
 
       gc.translate(this.x, this.y + 5);
@@ -105,4 +110,9 @@ export class Cat implements Drawable {
   isMouseOver(mouseX: number, mouseY: number): boolean {
       return mouseX >= this.x - 40 && mouseX <= this.x + 40 && mouseY >= this.y - 40 && mouseY <= this.y + 40;
   }
+
+  getType(): string {
+    return "cat";
+  }
+  
 }

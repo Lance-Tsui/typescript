@@ -68,4 +68,12 @@ export class Star implements Drawable {
   isHidden(): boolean {
     return this.hidden;
   }
+
+  matches(other: Drawable): boolean {
+    return true;
+  }
+
+  getType(): string {
+    return "star";
+  }
 }

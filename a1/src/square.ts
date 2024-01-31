@@ -40,6 +40,10 @@ export class Square implements Drawable {
       }
     }
 
+    matches(other: Drawable): boolean {
+      return true;
+    }
+
     isMouseOver(mouseX: number, mouseY: number): boolean {
       return true;
     }
@@ -50,5 +54,9 @@ export class Square implements Drawable {
 
     isHidden(): boolean {
       return true;
+    }
+
+    getType(): string {
+      return "square";
     }
   }

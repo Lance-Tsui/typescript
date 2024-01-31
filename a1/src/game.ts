@@ -11,6 +11,8 @@ import { DisplayList } from "./displaylist";
 
 import { Message } from "./message";
 
+import { Drawable } from "./drawable";
+
 import { CATCOLORS, CATEYE, EDGE, FILLCOLORS, LINECLR, RADSTEP, STARCLR } from './constant';
 
 
@@ -23,6 +25,7 @@ export class Game {
     public displayList: DisplayList;
     public originalState: boolean[] = [];
     public numPairs: number;
+    public clickedCards: Drawable[] = [];
 
     constructor() {
         this.canvas = document.createElement("canvas");
@@ -152,18 +155,55 @@ export class Game {
     
 
     playGame(click?: boolean, mousex?: number, mousey?: number){
+        
+        
+
         if (this.gc && this.canvas) {
             
             const cols = this.calculateEvenColumns(this.canvas.width);
+
+            
             
             if (click && mousex && mousey) {
+                
                 this.displayList.forEach(item => {
                     item.setHover(false);
                     if (item.isMouseOver(mousex, mousey)) {
+                        
+                        this.clickedCards.push(item);
+                        console.log(this.clickedCards);
+                        if (this.clickedCards.length == 1) {
+                            
+                            item.setHidden(!item.isHidden());
+                        }
+                        else if (this.clickedCards.length == 2) {
+                            
+                            if (this.clickedCards[0].matches(this.clickedCards[1])) {
+                                this.displayList.remove(this.clickedCards[0]);
+                                if (this.clickedCards[0].getType() == "cat") {
+                                    
+                                    const catItem = this.clickedCards[0] as Cat;
+                                    this.displayList.add(new Cat(catItem.x, catItem.y, catItem.color, 
+                                        catItem.position, false, false, "#d6d6d6"));
+                                }
 
-                        item.setHidden(!item.isHidden());
+                                this.displayList.remove(this.clickedCards[1]);
+                                if (this.clickedCards[1].getType() == "cat") {
+                                    const catItem = this.clickedCards[1] as Cat;
+                                    this.displayList.add(new Cat(catItem.x, catItem.y, catItem.color, 
+                                        catItem.position, false, false, "#d6d6d6"));
+                                }
+                            } else {
+                                
+                            }
+                            this.clickedCards = [];
+                        } else {
+                            this.clickedCards.pop();
+                        }
+                        
                     }
                 });
+                console.log(this.displayList);
                 this.displayList.draw(this.gc);
             } else if (mousex && mousey) {
                 this.displayList.forEach(item => {

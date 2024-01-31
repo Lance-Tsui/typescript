@@ -58,4 +58,12 @@ export class Circle implements Drawable {
     isHidden(): boolean {
       return this.hidden;
     }
+
+    matches(other: Drawable): boolean {
+      return true;
+    }
+
+    getType(): string {
+      return "circle";
+    }
   }
