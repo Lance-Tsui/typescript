@@ -21,7 +21,6 @@ export class Game {
     public gc: CanvasRenderingContext2D | null;
     public mode: string;
     public message: Message;
-    public cardList: DisplayList;
     public displayList: DisplayList;
     public originalState: boolean[] = [];
     public numPairs: number;
@@ -38,7 +37,6 @@ export class Game {
         this.gc = this.canvas.getContext("2d");
         this.message = new Message(1);
         this.mode = "start";
-        this.cardList = new DisplayList();
         this.displayList = new DisplayList();
         this.numPairs = 1;
         this.cheat = false;
@@ -100,6 +98,10 @@ export class Game {
         if (this.gc && this.canvas) {
             this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.displayList.clear();
+            this.cheat = false;
+            this.mode = "start";
+            this.clickedCards = [];
+            this.originalState = [];
             const cols = this.calculateEvenColumns(this.canvas.width);
             if (!numPairs) {
                 numPairs = 1;
@@ -133,7 +135,7 @@ export class Game {
                 if (pair < 5){
                     const color = CATCOLORS[Math.floor(i / 2)];
                     const cateye = CATEYE[Math.floor(i / 2)];
-                    const cat = new Cat(x, y, color, cateye, false, false);
+                    const cat = new Cat(x, y, color, cateye, false, false, true);
                     this.displayList.add(cat);
                 }
 
@@ -142,12 +144,12 @@ export class Game {
                     const innrad = RADSTEP[Math.floor(i / 2) - 5][1];
                     const lnclr = LINECLR[Math.floor(i / 2) - 5]
                     const fillcolor = FILLCOLORS[Math.floor(i / 2) - 5];
-                    const circle = new Circle(x, y, outrad, innrad, lnclr, 3, fillcolor, false, false);
+                    const circle = new Circle(x, y, outrad, innrad, lnclr, 3, fillcolor, false, false, true);
                     this.displayList.add(circle);
                 } else {
                     const edge = EDGE[Math.floor(i / 2) - 10];
                     const side = STARCLR[Math.floor(i / 2) - 10];
-                    const star = new Star(x, y, 35, 13, edge, side, "black", 3, false, false);
+                    const star = new Star(x, y, 35, 13, edge, side, "black", 3, false, false, true);
                     this.displayList.add(star);
                 }
 
@@ -176,10 +178,10 @@ export class Game {
             const cols = this.calculateEvenColumns(this.canvas.width);
             
             if (click && mousex && mousey) {
-                
-                this.cardList.forEach(item => {
+                console.log(this.displayList);
+                this.displayList.forEach(item => {
                     item.setHover(false);
-                    if (item.isMouseOver(mousex, mousey)) {
+                    if (item.isclickable() && item.isMouseOver(mousex, mousey)) {
 
                         if (!item.isHidden()) {
                             const index = this.clickedCards.findIndex(card => card === item);
@@ -198,22 +200,62 @@ export class Game {
                                 }
                                 else if (this.clickedCards.length == 2) { 
                                     if (this.clickedCards[0].matches(this.clickedCards[1])) {
-                                        this.cardList.remove(this.clickedCards[0]);
+
                                         this.displayList.remove(this.clickedCards[0]);
+
+                                        this.displayList.remove(this.clickedCards[1]);
+
+                                        console.log(this.displayList);
+                                        
                                         if (this.clickedCards[0].getType() == "cat") {
-                                            
+                                            console.log("yes");
                                             const catItem = this.clickedCards[0] as Cat;
                                             this.displayList.add(new Cat(catItem.x, catItem.y, catItem.color, 
-                                                catItem.position, false, false, "#d6d6d6"));
+                                                catItem.position, false, false, false));
                                         }
-                                        this.cardList.remove(this.clickedCards[1]);
-                                        this.displayList.remove(this.clickedCards[1]);
+                                        
                                         if (this.clickedCards[1].getType() == "cat") {
                                             const catItem = this.clickedCards[1] as Cat;
                                             this.displayList.add(new Cat(catItem.x, catItem.y, catItem.color, 
-                                                catItem.position, false, false, "#d6d6d6"));
+                                                catItem.position, false, false, false));
                                         }
 
+                                        if (this.clickedCards[0].getType() == "circle") {
+                                            const circleItem = this.clickedCards[0] as Circle;
+                                            this.displayList.add(new Circle(circleItem.x, circleItem.y, 
+                                                circleItem.maxRadius, circleItem.step, circleItem.strokeColor, 
+                                                circleItem.lineWidth, circleItem.fillColors,
+                                                false, false, false));
+                                        }
+
+                                        if (this.clickedCards[1].getType() == "circle") {
+                                            
+                                            const circleItem = this.clickedCards[1] as Circle;
+                                            this.displayList.add(new Circle(circleItem.x, circleItem.y, 
+                                                circleItem.maxRadius, circleItem.step, circleItem.strokeColor, 
+                                                circleItem.lineWidth, circleItem.fillColors,
+                                                false, false, false));
+                                        }
+
+                                        if (this.clickedCards[0].getType() == "star") {
+                                            
+                                            const starItem = this.clickedCards[0] as Star;
+                                            this.displayList.add(new Star(starItem.x, starItem.y, 
+                                                starItem.outerRadius, starItem.innerRadius, starItem.points, 
+                                                starItem.fillColor, starItem.strokeColor, starItem.linewidth,
+                                                false, false, false));
+                                        }
+
+                                        if (this.clickedCards[1].getType() == "star") {
+                                            
+                                            const starItem = this.clickedCards[1] as Star;
+                                            this.displayList.add(new Star(starItem.x, starItem.y, 
+                                                starItem.outerRadius, starItem.innerRadius, starItem.points, 
+                                                starItem.fillColor, starItem.strokeColor, starItem.linewidth,
+                                                false, false, false));
+                                        }
+                                        console.log(this.displayList);
+                                        
                                         this.clickedCards = [];
                                     } else {
                                         item.setHidden(!item.isHidden());
@@ -263,7 +305,7 @@ export class Game {
                     if (pair < 5){
                         const color = CATCOLORS[Math.floor(i / 2)];
                         const cateye = CATEYE[Math.floor(i / 2)];
-                        const cat = new Cat(coordinatesList[i][0], coordinatesList[i][1], color, cateye, true, false);
+                        const cat = new Cat(coordinatesList[i][0], coordinatesList[i][1], color, cateye, true, false, true);
                         this.displayList.add(cat);
                     }
     
@@ -272,16 +314,18 @@ export class Game {
                         const innrad = RADSTEP[Math.floor(i / 2) - 5][1];
                         const lnclr = LINECLR[Math.floor(i / 2) - 5]
                         const fillcolor = FILLCOLORS[Math.floor(i / 2) - 5];
-                        const circle = new Circle(coordinatesList[i][0], coordinatesList[i][1], outrad, innrad, lnclr, 3, fillcolor, true, false);
+                        const circle = new Circle(coordinatesList[i][0], coordinatesList[i][1], outrad, 
+                            innrad, lnclr, 3, fillcolor, true, false, true);
                         this.displayList.add(circle);
                     } else {
                         const edge = EDGE[Math.floor(i / 2) - 10];
                         const side = STARCLR[Math.floor(i / 2) - 10];
-                        const star = new Star(coordinatesList[i][0], coordinatesList[i][1], 35, 13, edge, side, "black", 3, true, false);
+                        const star = new Star(coordinatesList[i][0], coordinatesList[i][1], 35, 13, 
+                            edge, side, "black", 3, true, false, true);
                         this.displayList.add(star);
                     }
                 }
-                this.cardList = this.displayList;
+
                 this.displayList.draw(this.gc);
             }
 

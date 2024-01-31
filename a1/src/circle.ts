@@ -5,13 +5,18 @@ export class Circle implements Drawable {
 
     constructor(public x: number, public y: number, public maxRadius: number, public step: number, 
       public strokeColor: string = '#000', public lineWidth: number = 3, public fillColors: string[] = [],
-      public hidden: boolean, public hover: boolean) {
+      public hidden: boolean, public hover: boolean, public clickable: boolean) {
     }
   
     draw(gc: CanvasRenderingContext2D) {
       gc.save();
+
+      var bgcolor = "white";
+      if (!this.clickable) {
+        bgcolor = "#d6d6d6";
+      }
       if (!this.hidden) {
-        const backgroundSquare = new Square(this.x, this.y, 80, "white", "black", 4);
+        const backgroundSquare = new Square(this.x, this.y, 80, bgcolor, "black", 4);
         backgroundSquare.draw(gc);
 
           for (let radius = this.maxRadius, i = 0; radius >= this.step; radius -= this.step, i++) {
@@ -60,10 +65,24 @@ export class Circle implements Drawable {
     }
 
     matches(other: Drawable): boolean {
-      return true;
+      if (this.getType() != other.getType()){
+        return false;
+      }
+      const others = other as Circle;
+      if (this.x == others.x && this.y == others.y){
+        return false;
+      }
+      if (this.fillColors == others.fillColors) {
+        return true;
+      }
+      return false;
     }
 
     getType(): string {
       return "circle";
+    }
+
+    isclickable(): boolean {
+      return this.clickable;
     }
   }

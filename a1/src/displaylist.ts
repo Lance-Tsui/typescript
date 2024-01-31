@@ -7,8 +7,11 @@ export class DisplayList {
     this.list = [...this.list, drawable];
   }
 
-  remove(drawable: Drawable) {
-    this.list = this.list.filter((d) => d !== drawable);
+  remove(item: Drawable) {
+    const index = this.list.findIndex(x => x === item);
+    if (index !== -1) {
+        this.list.splice(index, 1);
+      }
   }
 
   draw(gc: CanvasRenderingContext2D) {

@@ -59,4 +59,8 @@ export class Square implements Drawable {
     getType(): string {
       return "square";
     }
+
+    isclickable(): boolean {
+      return true;
+    }
   }

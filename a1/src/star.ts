@@ -4,7 +4,11 @@ import { Square } from "./square";
 export class Star implements Drawable {
   constructor(public x: number, public y: number, public outerRadius: number, public innerRadius: number,
      public points: number, public fillColor: string, public strokeColor: string, public linewidth: number, 
-     public hidden: boolean, public hover: boolean) {}
+     public hidden: boolean, public hover: boolean, public clickable: boolean) {
+     }
+
+
+    
 
   draw(gc: CanvasRenderingContext2D): void {
       const step = Math.PI / this.points;
@@ -13,8 +17,13 @@ export class Star implements Drawable {
       let angleOffset = Math.PI / this.points;
 
       gc.save();
+
+      var bgcolor = "white";
+      if (!this.clickable) {
+        bgcolor = "#d6d6d6";
+      }
       if (!this.hidden) {
-        const backgroundSquare = new Square(this.x, this.y, 80, "white", "black", 4);
+        const backgroundSquare = new Square(this.x, this.y, 80, bgcolor, "black", 4);
         backgroundSquare.draw(gc);
       gc.beginPath();
       for (let i = 0; i < this.points; i++) {
@@ -70,10 +79,24 @@ export class Star implements Drawable {
   }
 
   matches(other: Drawable): boolean {
-    return true;
+    if (this.getType() != other.getType()){
+      return false;
+    }
+    const others = other as Star;
+    if (this.x == others.x && this.y == others.y){
+      return false;
+    }
+    if (this.points == others.points) {
+      return true;
+    }
+    return false;
   }
 
   getType(): string {
     return "star";
+  }
+
+  isclickable(): boolean {
+    return this.clickable;
   }
 }
