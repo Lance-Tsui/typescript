@@ -56,6 +56,7 @@ export class Game {
         }
     }
 
+
     calculateEvenColumns(canvasWidth: number): number {
         const totalCardWidth = 86;
         const availableWidth = canvasWidth - 10;
@@ -152,17 +153,23 @@ export class Game {
         }
     }
 
-    
+    winMessage(): void {
+        this.mode = 'win';
+
+        if(this.gc && this.canvas) {
+            this.gc.font = "24px sans-serif";
+            this.gc.textAlign = "center";
+            this.gc.textBaseline = "middle";
+            this.gc.fillStyle = "white";
+            this.gc.fillText("You finished! Press SPACE to continue.", this.canvas.width / 2, this.canvas.height / 6);
+        }
+    }
 
     playGame(click?: boolean, mousex?: number, mousey?: number){
         
-        
-
         if (this.gc && this.canvas) {
             
             const cols = this.calculateEvenColumns(this.canvas.width);
-
-            
             
             if (click && mousex && mousey) {
                 
@@ -263,6 +270,14 @@ export class Game {
                 }
                 this.displayList.draw(this.gc);
             }
+
+            const allCardsUnhidden = this.displayList.every(card => !card.isHidden());
+            if (this.mode == "play" && allCardsUnhidden) {
+                this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height / 4);
+                this.mode = 'win';
+    
+                this.winMessage();
+            }
         }
     }
 
@@ -273,7 +288,9 @@ export class Game {
         }
     }
     
-
+    getMode(): string {
+        return this.mode;
+    }
 
     toggleMode(mode: string) {
         if (mode == "play") {
@@ -282,6 +299,9 @@ export class Game {
         } else if (mode == "start") {
             this.mode = "start";
             this.updateCanvas();
+        } else if (mode == "win") {
+            this.mode = "start";
+            this.updateCanvas(undefined, undefined, undefined, true);
         }
     }
 
@@ -305,7 +325,7 @@ export class Game {
         }
     }
 
-    updateCanvas(width?: number, height?: number, input?: string) {
+    updateCanvas(width?: number, height?: number, input?: string, prev?: boolean) {
 
         if (width && height && this.canvas) {
             this.canvas.width = width;
@@ -315,7 +335,11 @@ export class Game {
         if(this.gc && this.canvas) {
 
             if (this.mode == "start") {
+                if (prev) {
+                    this.numPairs = Math.min(this.numPairs + 1, 15);  
+                }
                 this.initGame(this.numPairs);
+
             } else {
                 this.playGame(undefined, undefined, undefined);
             }

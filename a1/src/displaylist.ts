@@ -33,4 +33,7 @@ export class DisplayList {
       return result;
   }
 
+  every(callback: (drawable: Drawable, index?: number, array?: Drawable[]) => boolean): boolean {
+    return this.list.every(callback);
+  }
 }
