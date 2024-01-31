@@ -26,6 +26,7 @@ export class Game {
     public originalState: boolean[] = [];
     public numPairs: number;
     public clickedCards: Drawable[] = [];
+    public cheat: boolean;
 
     constructor() {
         this.canvas = document.createElement("canvas");
@@ -40,6 +41,7 @@ export class Game {
         this.cardList = new DisplayList();
         this.displayList = new DisplayList();
         this.numPairs = 1;
+        this.cheat = false;
     }
 
     gameText(numPairs?: number){
@@ -71,6 +73,7 @@ export class Game {
 
     enterCheat() {
         if (this.mode === 'play' && this.gc && this.canvas) {
+            this.cheat = true;
             this.originalState = this.displayList.map<boolean>(card => card.isHidden());
             this.displayList.forEach(card => card.setHidden(false));
             this.redrawCanvas();
@@ -79,6 +82,7 @@ export class Game {
 
     exitCheat() {
         if (this.mode === 'play' && this.gc && this.canvas) {
+            this.cheat = false;
             this.displayList.forEach((card, index) => card.setHidden(this.originalState[index]));
             this.redrawCanvas();
         }
@@ -173,44 +177,53 @@ export class Game {
             
             if (click && mousex && mousey) {
                 
-                this.displayList.forEach(item => {
+                this.cardList.forEach(item => {
                     item.setHover(false);
                     if (item.isMouseOver(mousex, mousey)) {
-                        
-                        this.clickedCards.push(item);
-                        console.log(this.clickedCards);
-                        if (this.clickedCards.length == 1) {
-                            
-                            item.setHidden(!item.isHidden());
-                        }
-                        else if (this.clickedCards.length == 2) {
-                            
-                            if (this.clickedCards[0].matches(this.clickedCards[1])) {
-                                this.displayList.remove(this.clickedCards[0]);
-                                if (this.clickedCards[0].getType() == "cat") {
-                                    
-                                    const catItem = this.clickedCards[0] as Cat;
-                                    this.displayList.add(new Cat(catItem.x, catItem.y, catItem.color, 
-                                        catItem.position, false, false, "#d6d6d6"));
+
+                        if (!item.isHidden()) {
+                            const index = this.clickedCards.findIndex(card => card === item);
+                            if (index !== -1) {
+                                this.clickedCards.splice(index, 1);
+                            }
+                            item.setHidden(true);
+                        } else {
+                            if (this.clickedCards.length < 2) {
+                                if (!this.clickedCards.includes(item)) {
+                                    this.clickedCards.push(item);
                                 }
 
-                                this.displayList.remove(this.clickedCards[1]);
-                                if (this.clickedCards[1].getType() == "cat") {
-                                    const catItem = this.clickedCards[1] as Cat;
-                                    this.displayList.add(new Cat(catItem.x, catItem.y, catItem.color, 
-                                        catItem.position, false, false, "#d6d6d6"));
+                                if (this.clickedCards.length == 1) {
+                                    item.setHidden(!item.isHidden());
                                 }
-                            } else {
-                                
-                            }
-                            this.clickedCards = [];
-                        } else {
-                            this.clickedCards.pop();
+                                else if (this.clickedCards.length == 2) { 
+                                    if (this.clickedCards[0].matches(this.clickedCards[1])) {
+                                        this.cardList.remove(this.clickedCards[0]);
+                                        this.displayList.remove(this.clickedCards[0]);
+                                        if (this.clickedCards[0].getType() == "cat") {
+                                            
+                                            const catItem = this.clickedCards[0] as Cat;
+                                            this.displayList.add(new Cat(catItem.x, catItem.y, catItem.color, 
+                                                catItem.position, false, false, "#d6d6d6"));
+                                        }
+                                        this.cardList.remove(this.clickedCards[1]);
+                                        this.displayList.remove(this.clickedCards[1]);
+                                        if (this.clickedCards[1].getType() == "cat") {
+                                            const catItem = this.clickedCards[1] as Cat;
+                                            this.displayList.add(new Cat(catItem.x, catItem.y, catItem.color, 
+                                                catItem.position, false, false, "#d6d6d6"));
+                                        }
+
+                                        this.clickedCards = [];
+                                    } else {
+                                        item.setHidden(!item.isHidden());
+                                    }
+                                }
+                        }
                         }
                         
                     }
                 });
-                console.log(this.displayList);
                 this.displayList.draw(this.gc);
             } else if (mousex && mousey) {
                 this.displayList.forEach(item => {
@@ -268,11 +281,12 @@ export class Game {
                         this.displayList.add(star);
                     }
                 }
+                this.cardList = this.displayList;
                 this.displayList.draw(this.gc);
             }
 
             const allCardsUnhidden = this.displayList.every(card => !card.isHidden());
-            if (this.mode == "play" && allCardsUnhidden) {
+            if (this.mode == "play" && allCardsUnhidden && !this.cheat) {
                 this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height / 4);
                 this.mode = 'win';
     

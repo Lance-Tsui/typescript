@@ -20,7 +20,17 @@ export class Cat implements Drawable {
   }
 
   matches(other: Drawable): boolean {
-    return typeof(this) == typeof(other);
+    if (this.getType() != other.getType()){
+      return false;
+    }
+    const others = other as Cat;
+    if (this.x == others.x && this.y == others.y){
+      return false;
+    }
+    if (this.color == others.color) {
+      return true;
+    }
+    return false;
   }
 
   draw(gc: CanvasRenderingContext2D) {
