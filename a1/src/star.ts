@@ -7,9 +7,7 @@ export class Star implements Drawable {
      public hidden: boolean, public hover: boolean, public clickable: boolean) {
      }
 
-
-    
-
+  // draw
   draw(gc: CanvasRenderingContext2D): void {
       const step = Math.PI / this.points;
 
@@ -66,6 +64,8 @@ export class Star implements Drawable {
   isMouseOver(mouseX: number, mouseY: number): boolean {
     return mouseX >= this.x - 40 && mouseX <= this.x + 40 && mouseY >= this.y - 40 && mouseY <= this.y + 40;
   }
+
+  // setting up cover color
   setHover(hover: boolean): void{
     this.hover = hover;
   }
@@ -78,6 +78,7 @@ export class Star implements Drawable {
     return this.hidden;
   }
 
+  // checking if cards match
   matches(other: Drawable): boolean {
     if (this.getType() != other.getType()){
       return false;
@@ -92,10 +93,12 @@ export class Star implements Drawable {
     return false;
   }
 
+  // return star type
   getType(): string {
     return "star";
   }
 
+  // is the element clickable
   isclickable(): boolean {
     return this.clickable;
   }

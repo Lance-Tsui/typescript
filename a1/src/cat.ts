@@ -2,22 +2,27 @@ import { Drawable } from "./drawable";
 import { Square } from "./square";
 
 export class Cat implements Drawable {
+  
   constructor(public x: number, public y: number, public color: string, public position: string, 
     public hidden: boolean, public hover: boolean, public clickable: boolean) {
     }
 
+  // setting up cover color
   setHover(hover: boolean): void {
     this.hover = hover;
   }
 
+  // setting up hidden status
   setHidden(hidden: boolean): void {
     this.hidden = hidden;
   }
 
+  // check if hidden or not
   isHidden(): boolean {
     return this.hidden;
   }
 
+  // checking if cards match
   matches(other: Drawable): boolean {
     if (this.getType() != other.getType()){
       return false;
@@ -32,6 +37,7 @@ export class Cat implements Drawable {
     return false;
   }
 
+  // draw
   draw(gc: CanvasRenderingContext2D) {
     gc.save();
     if (!this.hidden) {
@@ -119,14 +125,17 @@ export class Cat implements Drawable {
     gc.restore();
   }
 
+  // check if mouse is over the object
   isMouseOver(mouseX: number, mouseY: number): boolean {
       return mouseX >= this.x - 40 && mouseX <= this.x + 40 && mouseY >= this.y - 40 && mouseY <= this.y + 40;
   }
 
+  // return cat type
   getType(): string {
     return "cat";
   }
 
+  // is the element clickable
   isclickable(): boolean {
     return this.clickable;
   }
