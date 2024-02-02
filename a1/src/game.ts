@@ -56,7 +56,7 @@ export class Game {
         }
     }
 
-
+    // calculate number of even columns, to fit the size of the canvas
     calculateEvenColumns(canvasWidth: number): number {
         const totalCardWidth = 86;
         const availableWidth = canvasWidth - 10;
@@ -69,6 +69,7 @@ export class Game {
         return columns;
     }
 
+    // enter cheat mode
     enterCheat() {
         if (this.mode === 'play' && this.gc && this.canvas) {
             this.cheat = true;
@@ -78,6 +79,7 @@ export class Game {
         }
     }
 
+    // exit cheat mode
     exitCheat() {
         if (this.mode === 'play' && this.gc && this.canvas) {
             this.cheat = false;
@@ -86,6 +88,7 @@ export class Game {
         }
     }
 
+    // redraw the current canvas
     redrawCanvas() {
         if (this.gc && this.canvas) {
             this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
