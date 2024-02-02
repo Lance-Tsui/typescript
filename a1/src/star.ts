@@ -6,13 +6,16 @@ export class Star implements Drawable {
   public rotation: number;
   public rotating: boolean;
   public hover: boolean;
+  public hidden: boolean;
+  public clickable: boolean;
 
   constructor(public x: number, public y: number, public outerRadius: number, public innerRadius: number,
-     public points: number, public fillColor: string, public strokeColor: string, public linewidth: number, 
-     public hidden: boolean, public clickable: boolean) {
+     public points: number, public fillColor: string, public strokeColor: string, public linewidth: number) {
       this.rotation = 0;
       this.rotating = false;
       this.hover = false;
+      this.hidden = false;
+      this.clickable = false;
      }
 
   // draw

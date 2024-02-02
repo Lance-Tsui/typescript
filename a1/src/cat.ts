@@ -6,12 +6,15 @@ export class Cat implements Drawable {
   public rotation: number;
   public rotating: boolean;
   public hover: boolean;
+  public hidden: boolean;
+  public clickable: boolean;
   
-  constructor(public x: number, public y: number, public color: string, public position: string, 
-    public hidden: boolean, public clickable: boolean) {
+  constructor(public x: number, public y: number, public color: string, public position: string) {
       this.rotation = 0;
       this.rotating = false;
       this.hover = false;
+      this.hidden = false;
+      this.clickable = false;
     }
 
   // setting up cover color

@@ -139,7 +139,9 @@ export class Game {
                 if (pair < 5){
                     const color = CATCOLORS[Math.floor(i / 2)];
                     const cateye = CATEYE[Math.floor(i / 2)];
-                    const cat = new Cat(x, y, color, cateye, false, true);
+                    const cat = new Cat(x, y, color, cateye);
+                    cat.setHidden(false);
+                    cat.setClickable(true);
                     this.displayList.add(cat);
                 }
 
@@ -148,12 +150,16 @@ export class Game {
                     const innrad = RADSTEP[Math.floor(i / 2) - 5][1];
                     const lnclr = LINECLR[Math.floor(i / 2) - 5]
                     const fillcolor = FILLCOLORS[Math.floor(i / 2) - 5];
-                    const circle = new Circle(x, y, outrad, innrad, lnclr, 3, fillcolor, false, true);
+                    const circle = new Circle(x, y, outrad, innrad, lnclr, 3, fillcolor);
+                    circle.setHidden(false);
+                    circle.setClickable(true);
                     this.displayList.add(circle);
                 } else {
                     const edge = EDGE[Math.floor(i / 2) - 10];
                     const side = STARCLR[Math.floor(i / 2) - 10];
-                    const star = new Star(x, y, 35, 13, edge, side, "black", 3, false, true);
+                    const star = new Star(x, y, 35, 13, edge, side, "black", 3);
+                    star.setHidden(false);
+                    star.setClickable(true);
                     this.displayList.add(star);
                 }
 
@@ -216,22 +222,22 @@ export class Game {
                                         if (this.clickedCards[0].getType() == "cat") {
                                             console.log("yes");
                                             const catItem = this.clickedCards[0] as Cat;
+                                            
                                             this.displayList.add(new Cat(catItem.x, catItem.y, catItem.color, 
-                                                catItem.position, false, false));
+                                                catItem.position));
                                         }
                                         
                                         if (this.clickedCards[1].getType() == "cat") {
                                             const catItem = this.clickedCards[1] as Cat;
                                             this.displayList.add(new Cat(catItem.x, catItem.y, catItem.color, 
-                                                catItem.position, false, false));
+                                                catItem.position));
                                         }
 
                                         if (this.clickedCards[0].getType() == "circle") {
                                             const circleItem = this.clickedCards[0] as Circle;
                                             this.displayList.add(new Circle(circleItem.x, circleItem.y, 
                                                 circleItem.maxRadius, circleItem.step, circleItem.strokeColor, 
-                                                circleItem.lineWidth, circleItem.fillColors,
-                                                false, false));
+                                                circleItem.lineWidth, circleItem.fillColors));
                                         }
 
                                         if (this.clickedCards[1].getType() == "circle") {
@@ -239,8 +245,7 @@ export class Game {
                                             const circleItem = this.clickedCards[1] as Circle;
                                             this.displayList.add(new Circle(circleItem.x, circleItem.y, 
                                                 circleItem.maxRadius, circleItem.step, circleItem.strokeColor, 
-                                                circleItem.lineWidth, circleItem.fillColors,
-                                                false, false));
+                                                circleItem.lineWidth, circleItem.fillColors));
                                         }
 
                                         if (this.clickedCards[0].getType() == "star") {
@@ -248,8 +253,7 @@ export class Game {
                                             const starItem = this.clickedCards[0] as Star;
                                             this.displayList.add(new Star(starItem.x, starItem.y, 
                                                 starItem.outerRadius, starItem.innerRadius, starItem.points, 
-                                                starItem.fillColor, starItem.strokeColor, starItem.linewidth,
-                                                false, false));
+                                                starItem.fillColor, starItem.strokeColor, starItem.linewidth));
                                         }
 
                                         if (this.clickedCards[1].getType() == "star") {
@@ -257,8 +261,7 @@ export class Game {
                                             const starItem = this.clickedCards[1] as Star;
                                             this.displayList.add(new Star(starItem.x, starItem.y, 
                                                 starItem.outerRadius, starItem.innerRadius, starItem.points, 
-                                                starItem.fillColor, starItem.strokeColor, starItem.linewidth,
-                                                false, false));
+                                                starItem.fillColor, starItem.strokeColor, starItem.linewidth));
                                         }
                                         
                                         
@@ -311,7 +314,9 @@ export class Game {
                     if (pair < 5){
                         const color = CATCOLORS[Math.floor(i / 2)];
                         const cateye = CATEYE[Math.floor(i / 2)];
-                        const cat = new Cat(coordinatesList[i][0], coordinatesList[i][1], color, cateye, true, true);
+                        const cat = new Cat(coordinatesList[i][0], coordinatesList[i][1], color, cateye);
+                        cat.setHidden(true);
+                        cat.setClickable(true);
                         this.displayList.add(cat);
                     }
     
@@ -321,13 +326,17 @@ export class Game {
                         const lnclr = LINECLR[Math.floor(i / 2) - 5]
                         const fillcolor = FILLCOLORS[Math.floor(i / 2) - 5];
                         const circle = new Circle(coordinatesList[i][0], coordinatesList[i][1], outrad, 
-                            innrad, lnclr, 3, fillcolor, true, true);
+                            innrad, lnclr, 3, fillcolor);
+                        circle.setHidden(true);
+                        circle.setClickable(true);
                         this.displayList.add(circle);
                     } else {
                         const edge = EDGE[Math.floor(i / 2) - 10];
                         const side = STARCLR[Math.floor(i / 2) - 10];
                         const star = new Star(coordinatesList[i][0], coordinatesList[i][1], 35, 13, 
-                            edge, side, "black", 3, true, true);
+                            edge, side, "black", 3);
+                        star.setHidden(true);
+                        star.setClickable(true);
                         this.displayList.add(star);
                     }
                 }

@@ -7,13 +7,16 @@ export class Circle implements Drawable {
     public rotation: number;
     public rotating: boolean;
     public hover: boolean;
+    public hidden: boolean;
+    public clickable: boolean;
 
     constructor(public x: number, public y: number, public maxRadius: number, public step: number, 
-      public strokeColor: string = '#000', public lineWidth: number = 3, public fillColors: string[] = [],
-      public hidden: boolean, public clickable: boolean) {
+      public strokeColor: string = '#000', public lineWidth: number = 3, public fillColors: string[] = []) {
         this.rotation = 0;
         this.rotating = false;
         this.hover = false;
+        this.hidden = false;
+        this.clickable = false;
     }
   
     draw(gc: CanvasRenderingContext2D) {
