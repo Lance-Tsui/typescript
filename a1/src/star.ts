@@ -25,7 +25,12 @@ export class Star implements Drawable {
       const step = Math.PI / this.points;
 
       let startAngle = Math.PI / 2;
+      
       let angleOffset = Math.PI / this.points;
+
+      if (this.points % 2 == 0) {
+        angleOffset = Math.PI / 2;
+      }
 
       gc.save();
 
