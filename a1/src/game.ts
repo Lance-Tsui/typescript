@@ -162,6 +162,7 @@ export class Game {
         }
     }
 
+    // show win message
     winMessage(): void {
         this.mode = 'win';
 
