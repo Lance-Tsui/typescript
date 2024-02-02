@@ -97,6 +97,7 @@ export class Game {
         }
     }
 
+    // initgame function
     initGame(numPairs?: number) {
         if (this.gc && this.canvas) {
             this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
