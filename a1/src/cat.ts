@@ -58,7 +58,7 @@ export class Cat implements Drawable {
 
       if (this.rotating) {
         gc.translate(this.x + 40, this.y + 40);
-        gc.rotate(this.rotation * Math.PI / 180); // 应用旋转
+        gc.rotate(this.rotation * Math.PI / 180);
         gc.translate(-this.x - 40, -this.y - 40);
       }
 
