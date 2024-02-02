@@ -9,4 +9,5 @@ export interface Drawable {
   getType(): string;  // get type
   isClickable(): boolean; // is clickable
   setClickable(clickable: boolean): void; // set clickable
+  startRotationAnimation(time: number): void;
 }

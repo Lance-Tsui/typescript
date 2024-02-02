@@ -182,6 +182,18 @@ export class Game {
         }
     }
 
+    draw(gc: CanvasRenderingContext2D) {
+        // clear all canvas
+        gc.clearRect(0, 0, gc.canvas.width, gc.canvas.height);
+
+
+        this.displayList.forEach(drawable => {
+            drawable.draw(gc);
+        });
+
+
+    }
+
     // playgame function
     playGame(click?: boolean, mousex?: number, mousey?: number){
         
@@ -217,53 +229,66 @@ export class Game {
 
                                         this.displayList.remove(this.clickedCards[1]);
 
-                                        console.log(this.displayList);
+                                        const firstCard = this.clickedCards[0];
                                         
-                                        if (this.clickedCards[0].getType() == "cat") {
-                                            console.log("yes");
-                                            const catItem = this.clickedCards[0] as Cat;
-                                            
-                                            this.displayList.add(new Cat(catItem.x, catItem.y, catItem.color, 
-                                                catItem.position));
-                                        }
-                                        
-                                        if (this.clickedCards[1].getType() == "cat") {
-                                            const catItem = this.clickedCards[1] as Cat;
-                                            this.displayList.add(new Cat(catItem.x, catItem.y, catItem.color, 
-                                                catItem.position));
+                                        if (firstCard.getType() == "cat") {
+                                            const catItem = firstCard as Cat;
+                                            const tempcat = new Cat(catItem.x, catItem.y, catItem.color, 
+                                                catItem.position);
+                                            // tempcat.startRotationAnimation(1000);
+                                            this.displayList.add(tempcat);
                                         }
 
-                                        if (this.clickedCards[0].getType() == "circle") {
-                                            const circleItem = this.clickedCards[0] as Circle;
-                                            this.displayList.add(new Circle(circleItem.x, circleItem.y, 
+                                        else if (firstCard.getType() == "circle") {
+                                            const circleItem = firstCard as Circle;
+                                            const tempCircle = new Circle(circleItem.x, circleItem.y, 
                                                 circleItem.maxRadius, circleItem.step, circleItem.strokeColor, 
-                                                circleItem.lineWidth, circleItem.fillColors));
+                                                circleItem.lineWidth, circleItem.fillColors);
+                                            // tempCircle.startRotationAnimation(1000);
+                                            this.displayList.add(tempCircle);
                                         }
 
-                                        if (this.clickedCards[1].getType() == "circle") {
-                                            
-                                            const circleItem = this.clickedCards[1] as Circle;
-                                            this.displayList.add(new Circle(circleItem.x, circleItem.y, 
-                                                circleItem.maxRadius, circleItem.step, circleItem.strokeColor, 
-                                                circleItem.lineWidth, circleItem.fillColors));
-                                        }
-
-                                        if (this.clickedCards[0].getType() == "star") {
-                                            
-                                            const starItem = this.clickedCards[0] as Star;
-                                            this.displayList.add(new Star(starItem.x, starItem.y, 
+                                        else if (firstCard.getType() == "star") {
+                                            const starItem = firstCard as Star;
+                                            const tempStar = new Star(starItem.x, starItem.y, 
                                                 starItem.outerRadius, starItem.innerRadius, starItem.points, 
-                                                starItem.fillColor, starItem.strokeColor, starItem.linewidth));
+                                                starItem.fillColor, starItem.strokeColor, starItem.linewidth);
+                                            // tempStar.startRotationAnimation(1000);
+                                            this.displayList.add(tempStar);
                                         }
 
-                                        if (this.clickedCards[1].getType() == "star") {
-                                            
-                                            const starItem = this.clickedCards[1] as Star;
-                                            this.displayList.add(new Star(starItem.x, starItem.y, 
-                                                starItem.outerRadius, starItem.innerRadius, starItem.points, 
-                                                starItem.fillColor, starItem.strokeColor, starItem.linewidth));
-                                        }
+
+                                        const secondCard = this.clickedCards[1];
                                         
+                                        if (secondCard.getType() == "cat") {
+                                            const catItem = secondCard as Cat;
+                                            
+                                            const tempcat = new Cat(catItem.x, catItem.y, catItem.color, 
+                                                catItem.position);
+                                            // tempcat.startRotationAnimation(1000);
+                                            this.displayList.add(tempcat);
+                                        }
+
+                                        else if (secondCard.getType() == "circle") {
+                                            
+                                            const circleItem = secondCard as Circle;
+                                            const tempCircle = new Circle(circleItem.x, circleItem.y, 
+                                                circleItem.maxRadius, circleItem.step, circleItem.strokeColor, 
+                                                circleItem.lineWidth, circleItem.fillColors);
+                                            // tempCircle.startRotationAnimation(1000);
+                                            this.displayList.add(tempCircle);
+                                        }
+
+                                        else if (secondCard.getType() == "star") {
+                                            
+                                            const starItem = secondCard as Star;
+                                            const tempStar = new Star(starItem.x, starItem.y, 
+                                                starItem.outerRadius, starItem.innerRadius, starItem.points, 
+                                                starItem.fillColor, starItem.strokeColor, starItem.linewidth);
+                                            // tempStar.startRotationAnimation(1000);
+                                            this.displayList.add(tempStar);
+                                        }
+
                                         
                                         this.clickedCards = [];
                                     } else {
@@ -424,4 +449,16 @@ export class Game {
             }
         }
     }
+
+    updateAnimation(time: number) {
+
+        this.displayList.forEach(item => {
+            if(item instanceof Cat && item.rotating) {
+
+                item.startRotationAnimation(time);
+            }
+
+        });
+    }
+
 }

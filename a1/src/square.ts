@@ -71,4 +71,8 @@ export class Square implements Drawable {
     // set clickable
     setClickable(clickable: boolean): void {
     }
+
+    startRotationAnimation(time: number): void {
+      
+    }
   }

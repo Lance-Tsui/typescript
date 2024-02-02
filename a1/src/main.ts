@@ -14,9 +14,11 @@ import {
   setSKAnimationCallback,
   addSKEventTranslator,
   SKKeyboardEvent,
+  SKMouseEvent,
 } from "simplekit/canvas-mode"
 
 import { Game } from "./game";
+
 
 // handle events
 setSKEventListener((e) => {
@@ -28,13 +30,13 @@ setSKEventListener((e) => {
       }
       break;
     case "mousemove":
-      const mouse = e as MouseEvent;
+      const mouse = e as SKMouseEvent;
       if (game.mode == "play") {
         game.playGame(false, mouse.x, mouse.y);
       }
       break;
     case "click":
-      const click = e as MouseEvent;
+      const click = e as SKMouseEvent;
       if (game.mode == "play") {
         game.playGame(true, click.x, click.y);
       }
@@ -73,7 +75,15 @@ startSimpleKit();
 
 const game = new Game();
 
+setSKDrawCallback((gc) => {
+  // clear canvas
+  gc.clearRect(0, 0, gc.canvas.width, gc.canvas.height);
+  
+  // call game
+  game.draw(gc);
+});
 
-
-
+setSKAnimationCallback((time) => {
+  game.updateAnimation(time);
+});
 

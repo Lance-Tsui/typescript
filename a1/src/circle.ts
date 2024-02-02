@@ -9,6 +9,7 @@ export class Circle implements Drawable {
     public hover: boolean;
     public hidden: boolean;
     public clickable: boolean;
+    public bgcolor: string;
 
     constructor(public x: number, public y: number, public maxRadius: number, public step: number, 
       public strokeColor: string = '#000', public lineWidth: number = 3, public fillColors: string[] = []) {
@@ -17,17 +18,17 @@ export class Circle implements Drawable {
         this.hover = false;
         this.hidden = false;
         this.clickable = false;
+        this.bgcolor = "white";
     }
   
     draw(gc: CanvasRenderingContext2D) {
       gc.save();
 
-      var bgcolor = "white";
       if (!this.clickable) {
-        bgcolor = "#d6d6d6";
+        this.bgcolor = "#d6d6d6";
       }
       if (!this.hidden) {
-        const backgroundSquare = new Square(this.x, this.y, 80, bgcolor, "black", 4);
+        const backgroundSquare = new Square(this.x, this.y, 80, this.bgcolor, "black", 4);
         backgroundSquare.draw(gc);
 
           for (let radius = this.maxRadius, i = 0; radius >= this.step; radius -= this.step, i++) {
@@ -107,5 +108,9 @@ export class Circle implements Drawable {
     // set clickable
     setClickable(clickable: boolean): void {
       this.clickable = clickable;
+    }
+
+    startRotationAnimation(time: number): void {
+      
     }
   }

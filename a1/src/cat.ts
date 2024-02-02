@@ -3,11 +3,13 @@ import { Square } from "./square";
 import { CallbackTimer } from "./timer";
 
 export class Cat implements Drawable {
+  public rotationTimer?: CallbackTimer;
   public rotation: number;
   public rotating: boolean;
   public hover: boolean;
   public hidden: boolean;
   public clickable: boolean;
+  public bgcolor: string;
   
   constructor(public x: number, public y: number, public color: string, public position: string) {
       this.rotation = 0;
@@ -15,6 +17,7 @@ export class Cat implements Drawable {
       this.hover = false;
       this.hidden = false;
       this.clickable = false;
+      this.bgcolor = "white";
     }
 
   // setting up cover color
@@ -51,11 +54,18 @@ export class Cat implements Drawable {
   draw(gc: CanvasRenderingContext2D) {
     gc.save();
     if (!this.hidden) {
-      var bgcolor = "white";
-      if (!this.clickable) {
-        bgcolor = "#d6d6d6";
+
+
+      if (this.rotating) {
+        gc.translate(this.x + 40, this.y + 40);
+        gc.rotate(this.rotation * Math.PI / 180); // 应用旋转
+        gc.translate(-this.x - 40, -this.y - 40);
       }
-      const backgroundSquare = new Square(this.x, this.y, 80, bgcolor, "black", 4);
+
+      if (!this.clickable) {
+        this.bgcolor = "#d6d6d6";
+      }
+      const backgroundSquare = new Square(this.x, this.y, 80, this.bgcolor, "black", 4);
       backgroundSquare.draw(gc);
 
       gc.translate(this.x, this.y + 5);
@@ -130,32 +140,38 @@ export class Cat implements Drawable {
           gc.lineWidth = 2;
           gc.strokeRect(this.x - 42, this.y - 42, 83, 83);
       }
-    }
+    } 
+
+
 
     gc.restore();
   }
 
-  startRotationAnimation() {
-    const duration = 1000; // 旋转动画持续1秒
-    this.rotating = true;
+  startRotationAnimation(time: number): void {
+    if (!this.rotationTimer || !this.rotationTimer.isRunning) {
+        this.rotation = 0; // Reset rotation to 0 at start
+        this.rotationTimer = new CallbackTimer(1000, () => {
+            // Callback after timer completes
+            // Reset rotation or handle as needed
+            this.rotation = 0;
+        });
 
-    const timer = new CallbackTimer(duration, (time) => {
-        this.rotating = false; // 停止旋转
-        this.rotation = 0; // 重置旋转角度
-    });
+        // Start the timer with the current time
+        this.rotationTimer.start(performance.now());
 
-    timer.start(performance.now());
 
-    const animate = (time: number) => {
-        if (this.rotating) {
-            requestAnimationFrame(animate);
-            this.rotation = (time % duration) / duration * 360; // 计算当前旋转角度
-            timer.update(time);
-        }
-    };
+    }
+}
 
-    requestAnimationFrame(animate);
-  }
+update(time: number): void {
+    // Call this from your main loop with the current time
+    if (this.rotationTimer && this.rotationTimer.isRunning) {
+        this.rotationTimer.update(time);
+        // Here you can adjust the rotation as needed
+        // For a simple linear rotation over one second:
+        this.rotation = ((time % 1000) / 1000) * 360;
+    }
+}
 
 
   // check if mouse is over the object

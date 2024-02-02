@@ -8,6 +8,7 @@ export class Star implements Drawable {
   public hover: boolean;
   public hidden: boolean;
   public clickable: boolean;
+  public bgcolor: string;
 
   constructor(public x: number, public y: number, public outerRadius: number, public innerRadius: number,
      public points: number, public fillColor: string, public strokeColor: string, public linewidth: number) {
@@ -16,6 +17,7 @@ export class Star implements Drawable {
       this.hover = false;
       this.hidden = false;
       this.clickable = false;
+      this.bgcolor = "white";
      }
 
   // draw
@@ -27,12 +29,11 @@ export class Star implements Drawable {
 
       gc.save();
 
-      var bgcolor = "white";
       if (!this.clickable) {
-        bgcolor = "#d6d6d6";
+        this.bgcolor = "#d6d6d6";
       }
       if (!this.hidden) {
-        const backgroundSquare = new Square(this.x, this.y, 80, bgcolor, "black", 4);
+        const backgroundSquare = new Square(this.x, this.y, 80, this.bgcolor, "black", 4);
         backgroundSquare.draw(gc);
       gc.beginPath();
       for (let i = 0; i < this.points; i++) {
@@ -117,5 +118,9 @@ export class Star implements Drawable {
   // set clickable
   setClickable(clickable: boolean): void {
     this.clickable = clickable;
+  }
+
+  startRotationAnimation(time: number): void {
+      
   }
 }
