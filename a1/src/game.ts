@@ -175,6 +175,7 @@ export class Game {
         }
     }
 
+    // playgame function
     playGame(click?: boolean, mousex?: number, mousey?: number){
         
         if (this.gc && this.canvas) {
