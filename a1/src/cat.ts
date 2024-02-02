@@ -1,10 +1,17 @@
 import { Drawable } from "./drawable";
 import { Square } from "./square";
+import { CallbackTimer } from "./timer";
 
 export class Cat implements Drawable {
+  public rotation: number;
+  public rotating: boolean;
+  public hover: boolean;
   
   constructor(public x: number, public y: number, public color: string, public position: string, 
-    public hidden: boolean, public hover: boolean, public clickable: boolean) {
+    public hidden: boolean, public clickable: boolean) {
+      this.rotation = 0;
+      this.rotating = false;
+      this.hover = false;
     }
 
   // setting up cover color
@@ -125,6 +132,29 @@ export class Cat implements Drawable {
     gc.restore();
   }
 
+  startRotationAnimation() {
+    const duration = 1000; // 旋转动画持续1秒
+    this.rotating = true;
+
+    const timer = new CallbackTimer(duration, (time) => {
+        this.rotating = false; // 停止旋转
+        this.rotation = 0; // 重置旋转角度
+    });
+
+    timer.start(performance.now());
+
+    const animate = (time: number) => {
+        if (this.rotating) {
+            requestAnimationFrame(animate);
+            this.rotation = (time % duration) / duration * 360; // 计算当前旋转角度
+            timer.update(time);
+        }
+    };
+
+    requestAnimationFrame(animate);
+  }
+
+
   // check if mouse is over the object
   isMouseOver(mouseX: number, mouseY: number): boolean {
       return mouseX >= this.x - 40 && mouseX <= this.x + 40 && mouseY >= this.y - 40 && mouseY <= this.y + 40;
@@ -136,8 +166,13 @@ export class Cat implements Drawable {
   }
 
   // is the element clickable
-  isclickable(): boolean {
+  isClickable(): boolean {
     return this.clickable;
+  }
+
+  // set clickable
+  setClickable(clickable: boolean): void {
+    this.clickable = clickable;
   }
   
 }

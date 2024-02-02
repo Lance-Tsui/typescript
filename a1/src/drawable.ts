@@ -7,5 +7,6 @@ export interface Drawable {
   draw: (gc: CanvasRenderingContext2D) => void; // draw object
   matches(other: Drawable): boolean;  // if matches
   getType(): string;  // get type
-  isclickable(): boolean; // is clickable
+  isClickable(): boolean; // is clickable
+  setClickable(clickable: boolean): void; // set clickable
 }

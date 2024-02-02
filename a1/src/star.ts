@@ -1,10 +1,18 @@
 import { Drawable } from "./drawable";
 import { Square } from "./square";
+import { CallbackTimer } from "./timer";
 
 export class Star implements Drawable {
+  public rotation: number;
+  public rotating: boolean;
+  public hover: boolean;
+
   constructor(public x: number, public y: number, public outerRadius: number, public innerRadius: number,
      public points: number, public fillColor: string, public strokeColor: string, public linewidth: number, 
-     public hidden: boolean, public hover: boolean, public clickable: boolean) {
+     public hidden: boolean, public clickable: boolean) {
+      this.rotation = 0;
+      this.rotating = false;
+      this.hover = false;
      }
 
   // draw
@@ -99,7 +107,12 @@ export class Star implements Drawable {
   }
 
   // is the element clickable
-  isclickable(): boolean {
+  isClickable(): boolean {
     return this.clickable;
+  }
+
+  // set clickable
+  setClickable(clickable: boolean): void {
+    this.clickable = clickable;
   }
 }

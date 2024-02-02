@@ -1,6 +1,8 @@
 import { Drawable } from "./drawable";
+import { CallbackTimer } from "./timer";
 
 export class Square implements Drawable {
+
     constructor(
       public x: number,
       public y: number,
@@ -9,7 +11,9 @@ export class Square implements Drawable {
       public stroke?: string,
       public lineWidth?: number,
       public innerSquareColor?: string
-    ) {}
+    ) {
+
+    }
   
     draw(gc: CanvasRenderingContext2D) {
       gc.beginPath();
@@ -60,7 +64,11 @@ export class Square implements Drawable {
       return "square";
     }
 
-    isclickable(): boolean {
+    isClickable(): boolean {
       return true;
+    }
+
+    // set clickable
+    setClickable(clickable: boolean): void {
     }
   }

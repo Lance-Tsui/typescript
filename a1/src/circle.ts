@@ -1,11 +1,19 @@
 import { Drawable } from "./drawable";
 import { Square } from "./square";
+import { CallbackTimer } from "./timer";
 
 export class Circle implements Drawable {
 
+    public rotation: number;
+    public rotating: boolean;
+    public hover: boolean;
+
     constructor(public x: number, public y: number, public maxRadius: number, public step: number, 
       public strokeColor: string = '#000', public lineWidth: number = 3, public fillColors: string[] = [],
-      public hidden: boolean, public hover: boolean, public clickable: boolean) {
+      public hidden: boolean, public clickable: boolean) {
+        this.rotation = 0;
+        this.rotating = false;
+        this.hover = false;
     }
   
     draw(gc: CanvasRenderingContext2D) {
@@ -89,7 +97,12 @@ export class Circle implements Drawable {
     }
 
     // is the element clickable
-    isclickable(): boolean {
+    isClickable(): boolean {
       return this.clickable;
+    }
+
+    // set clickable
+    setClickable(clickable: boolean): void {
+      this.clickable = clickable;
     }
   }
