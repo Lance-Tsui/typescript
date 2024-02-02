@@ -122,14 +122,14 @@ export class Game {
                 const row = Math.floor(i / cols);
                 const col = i % cols;
             
-                // 对于每一行，计算这一行的卡片总宽度
+                // total width of the row
                 const cardsInThisRow = Math.min(cols, this.numPairs * 2 - row * cols);
                 const totalWidthThisRow = (cardsInThisRow - 1) * (cardWidth + gap);
             
-                // 计算这一行的起始 x 坐标
+                // starting x position of this row
                 const startXThisRow = (this.canvas.width - totalWidthThisRow) / 2;
                 
-                // 计算卡片的 x 和 y 坐标
+                // x and y coord of the card
                 const x = startXThisRow + col * (cardWidth + gap);
                 const y = this.canvas.height / 3 + row * (cardHeight + gap);
                 if (pair < 5){
@@ -254,7 +254,7 @@ export class Game {
                                                 starItem.fillColor, starItem.strokeColor, starItem.linewidth,
                                                 false, false, false));
                                         }
-                                        console.log(this.displayList);
+                                        
                                         
                                         this.clickedCards = [];
                                     } else {
@@ -339,6 +339,7 @@ export class Game {
         }
     }
 
+    // shuffle coordinates of the cards
     shuffleCoordinates(coordinates:[number, number][] = []) {
         for (let i = coordinates.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -346,10 +347,12 @@ export class Game {
         }
     }
     
+    // getting current mode
     getMode(): string {
         return this.mode;
     }
 
+    // three modes: play, start, and win
     toggleMode(mode: string) {
         if (mode == "play") {
             this.mode = "play";
@@ -363,18 +366,21 @@ export class Game {
         }
     }
 
+    // adding one more pair
     addPairs() {
         if (this.mode == "start") {
             this.initGame(Math.min(this.numPairs + 1, 15));
         }
     }
 
+    // reducing one pair
     removePairs() {
         if (this.mode == "start") {
             this.initGame(Math.max(this.numPairs - 1, 1));
         }
     }
 
+    // switching mode helper function
     switchMode() {
         if (this.gc && this.canvas) {
             this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
