@@ -48,22 +48,27 @@ export class Circle implements Drawable {
       gc.restore();
     }
 
+    // check if mouse is over the object
     isMouseOver(mouseX: number, mouseY: number): boolean {
       return mouseX >= this.x - 40 && mouseX <= this.x + 40 && mouseY >= this.y - 40 && mouseY <= this.y + 40;
     }
 
+    // setting up cover color
     setHover(hover: boolean): void{
       this.hover = hover;
     }
 
+    // setting up hidden status
     setHidden(hidden: boolean): void{
       this.hidden = hidden;
     };
 
+    // check if hidden or not
     isHidden(): boolean {
       return this.hidden;
     }
 
+    // checking if cards match
     matches(other: Drawable): boolean {
       if (this.getType() != other.getType()){
         return false;
@@ -78,10 +83,12 @@ export class Circle implements Drawable {
       return false;
     }
 
+    // return cat type
     getType(): string {
       return "circle";
     }
 
+    // is the element clickable
     isclickable(): boolean {
       return this.clickable;
     }
