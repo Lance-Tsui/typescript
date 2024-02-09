@@ -1,24 +1,39 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import {
+  startSimpleKit,
+  setSKDrawCallback,
+  SKButton,
+} from "simplekit/imperative-mode";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+import { SKContainer } from "./container";
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+const blueContainer = new SKContainer({
+  x: 50,
+  y: 20,
+  width: 200,
+  height: 175,
+});
+blueContainer.fill = "lightblue";
+
+const buttonB = new SKButton({ text: "B", x: 10, y: 10, width: 80 });
+
+const greenContainer = new SKContainer({
+  x: 20,
+  y: 80,
+  width: 150,
+  height: 75,
+});
+greenContainer.fill = "lightgreen";
+
+const buttonA = new SKButton({ text: "A", x: 10, y: 10, width: 80 });
+
+// build the tree
+blueContainer.addChild(buttonB);
+blueContainer.addChild(greenContainer);
+greenContainer.addChild(buttonA);
+
+setSKDrawCallback((gc) => {
+  gc.clearRect(0, 0, gc.canvas.width, gc.canvas.height);
+  blueContainer.draw(gc);
+});
+
+startSimpleKit();
