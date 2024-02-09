@@ -37,8 +37,7 @@ export class InfoView extends SKContainer implements Observer {
   constructor(private model: Model) {
     super();
 
-    this.width = 150;
-    this.fill = "lightgrey";
+    this.fill = "whitesmoke";
     this.fillHeight = 1;
 
     // setup the view
