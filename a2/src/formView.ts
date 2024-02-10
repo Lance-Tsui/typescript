@@ -33,7 +33,7 @@ export class FormView extends SKContainer implements Observer {
 
     // setup the view
     this.id = "entry";
-    this.fill = "grey";
+    this.fill = "lightgrey";
     this.padding = 10;
 
     // try removing fillWidth and/or height
