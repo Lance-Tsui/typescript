@@ -1,9 +1,11 @@
+import { getRandomColor } from "./colorScheme";
 import { Subject } from "./observer";
 
 type Todo = {
   id: number;
   text: string;
   done: boolean;
+  color: string;
 };
 
 // super simple "id generator"
@@ -27,9 +29,10 @@ export class Model extends Subject {
   // Create
   create(task: string) {
     if (this.num < 20) {
+      const newcolor = getRandomColor(); // 调用随机颜色生成函数
       this.todos = [
         ...this.todos,
-        { id: uniqueId++, text: task, done: false },
+        { id: uniqueId++, text: task, done: false, color: newcolor },
       ];
       this.notifyObservers();
     }
