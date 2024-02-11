@@ -26,11 +26,13 @@ export class Model extends Subject {
 
   // Create
   create(task: string) {
-    this.todos = [
-      ...this.todos,
-      { id: uniqueId++, text: task, done: false },
-    ];
-    this.notifyObservers();
+    if (this.num < 20) {
+      this.todos = [
+        ...this.todos,
+        { id: uniqueId++, text: task, done: false },
+      ];
+      this.notifyObservers();
+    }
   }
 
   // Read

@@ -20,6 +20,8 @@ export class InfoView extends SKContainer implements Observer {
     const num = this.model.num;
     if (num === 0) {
       this.message.text = "no todos!";
+    } else if (num === 20) {
+      this.message.text = "FULL";
     } else if (this.model.selectId !== null) {
       this.message.text = `edit id#${this.model.selectId}`;
     } else {
