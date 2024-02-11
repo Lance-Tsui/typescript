@@ -45,7 +45,7 @@ export class ListView extends SKContainer implements Observer {
     // this.debug = true;
 
     // use a custom layout in this app
-    this.layoutMethod = makeStackColLayout();
+    this.layoutMethod = Layout.makeWrapRowLayout();
 
     // register with the model when we're ready
     this.model.addObserver(this);

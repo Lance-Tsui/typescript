@@ -27,6 +27,8 @@ export class SKSquare extends SKElement {
     }
 
     gc.restore();
+
+
   }
 
   public toString(): string {

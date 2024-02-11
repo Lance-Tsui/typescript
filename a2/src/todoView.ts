@@ -22,7 +22,6 @@ export class TodoView extends SKContainer implements Observer {
 
   constructor(private model: Model, public todoId: number) {
     super();
-
     // view design
     this.padding = 5;
     this.margin = 5;
@@ -30,9 +29,10 @@ export class TodoView extends SKContainer implements Observer {
     this.width = 50;
     this.height = 50;
     this.border = "grey";
-
+    
     // setup the view
-    this.layoutMethod = Layout.makeCentredLayout();
+    this.layoutMethod = Layout.makeFillRowLayout({ gap: 10 });
+
     this.addChild(this.square);
 
     // controllers
