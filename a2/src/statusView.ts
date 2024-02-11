@@ -17,14 +17,16 @@ export class StatusView extends SKContainer implements Observer {
 
   update(): void {
     const num = this.model.num;
-    if (num === 20) {
-      this.leftMessage.text = "FULL";
-    } else if (this.model.selectId !== null) {
+    if (this.model.selectId !== null) {
       this.leftMessage.text = `edit id#${this.model.selectId}`;
     } else {
       let text = `${num} shape${num > 1 ? "s" : ""}`;
       if (this.model.numDone > 0) {
         text += ` (${this.model.numDone} selected)`;
+      }
+
+      if (this.model.num == 20) {
+        text += " FULL";
       }
 
       this.leftMessage.text = text;

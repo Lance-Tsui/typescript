@@ -28,12 +28,11 @@ export class ListView extends SKContainer implements Observer {
   }
 
   initializeSquares() {
+    this.clearChildren();
     for (let i = 0; i < 8; i++) {
-        // Generate a random color for each square
-        const color = getRandomColor();
-        const squareView = new TodoView(this.model, i, color);
-        this.addChild(squareView);
+      this.model.create("square");
     }
+
   }
 
   constructor(private model: Model) {
@@ -51,6 +50,8 @@ export class ListView extends SKContainer implements Observer {
 
     // use a custom layout in this app
     this.layoutMethod = Layout.makeWrapRowLayout();
+
+    this.initializeSquares();
 
     // register with the model when we're ready
     this.model.addObserver(this);

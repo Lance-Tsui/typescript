@@ -37,8 +37,11 @@ export class TodoView extends SKContainer implements Observer {
 
     // controllers
     this.square.addEventListener("action", () => {
+      this.square.checked = !this.square.checked;
       model.update(todoId, { done: this.square.checked });
     });
+    
+
 
     // register with the model when we're ready
     this.model.addObserver(this);

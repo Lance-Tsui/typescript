@@ -24,7 +24,7 @@ export function rowLayoutWithJustifyContent(
   if (elements.length < 2) return { width: boundsWidth, height: boundsHeight };
 
   // 第一个元素对齐到左边
-  elements[0].x = 50;
+  elements[0].x = 75;
   elements[0].y = (boundsHeight - elements[0].heightLayout) / 2; // 垂直居中
 
   // 最后一个元素对齐到右边
