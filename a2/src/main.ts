@@ -7,7 +7,6 @@ import {
   SKEvent,
   setSKEventListener,
   SKResizeEvent,
-  setSKDrawCallback,
 } from "simplekit/imperative-mode";
 
 // local imports
