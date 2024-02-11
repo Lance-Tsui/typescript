@@ -14,8 +14,20 @@ import {
     //#region observer pattern
   
     update(): void {
-        this.message.text = "hello world";
+      const num = this.model.num;
+      if (num === 20) {
+        this.message.text = "FULL";
+      } else if (this.model.selectId !== null) {
+        this.message.text = `edit id#${this.model.selectId}`;
+      } else {
+        let text = `${num} shape${num > 1 ? "s" : ""}`;
+        if (this.model.numDone > 0) {
+          text += ` (${this.model.numDone} selected)`;
+        }
+  
+        this.message.text = text;
       }
+    }
     
     message = new SKLabel({ text: "?" });
 
@@ -26,13 +38,14 @@ import {
       this.id = "bottom";
       this.fill = "lightgrey";
       this.padding = 10;
-
   
       // try removing fillWidth and/or height
       this.fillWidth = 1;
       this.height = 50;
+
+      this.message.margin = 15;
   
-      this.layoutMethod = Layout.makeCentredLayout();
+      this.layoutMethod = Layout.makeFillRowLayout();
  
       this.addChild(this.message);
 

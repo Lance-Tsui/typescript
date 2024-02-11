@@ -13,9 +13,6 @@ import { makeStackColLayout } from "./stackCol";
 import { TodoView } from "./todoView";
 import { eventBus } from './eventbus';
 
-import { SKSquare } from "./container";
-
-
 export class ListView extends SKContainer implements Observer {
 
 
