@@ -13,8 +13,11 @@ import { makeStackColLayout } from "./stackCol";
 import { TodoView } from "./todoView";
 import { eventBus } from './eventbus';
 
+import { SKSquare } from "./container";
+
+
 export class ListView extends SKContainer implements Observer {
-  //#region observer pattern
+
 
   update(): void {
     // Simplest thing to do is clear all children and build todo
@@ -28,8 +31,6 @@ export class ListView extends SKContainer implements Observer {
     });
   }
 
-  //#endregion
-
   constructor(private model: Model) {
     super();
 
@@ -39,10 +40,21 @@ export class ListView extends SKContainer implements Observer {
     this.height = 320;
     this.fillHeight = 1;
     this.fill = "white";
+
+    
     // this.debug = true;
 
     // use a custom layout in this app
     this.layoutMethod = makeStackColLayout();
+
+    const hue = Math.floor(Math.random() * 360);
+    const blueContainer = new SKSquare({
+      x: 50,
+      y: 20,
+    });
+    blueContainer.fill = "lightblue";
+    this.addChild(blueContainer);
+
 
     // register with the model when we're ready
     this.model.addObserver(this);
@@ -51,6 +63,8 @@ export class ListView extends SKContainer implements Observer {
       this.height = e.height - 100;
 
     });
+
+    
 
   }
 

@@ -7,6 +7,7 @@ import {
   SKEvent,
   setSKEventListener,
   SKResizeEvent,
+  setSKDrawCallback,
 } from "simplekit/imperative-mode";
 
 // local imports
@@ -28,6 +29,8 @@ setSKEventListener((e: SKEvent) => {
     eventBus.emit('resize', { width, height });
   }
 });
+
+
 
 // data
 const model = new Model();
