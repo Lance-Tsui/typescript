@@ -20,12 +20,12 @@ export class TodoView extends SKContainer implements Observer {
 
   square = new SKSquare();
 
-  constructor(private model: Model, public todoId: number) {
+  constructor(private model: Model, public todoId: number, fillcolor: string) {
     super();
     // view design
     this.padding = 5;
     this.margin = 5;
-    this.fill = "lightblue";
+    this.fill = fillcolor;
     this.width = 50;
     this.height = 50;
     this.border = "grey";

@@ -14,6 +14,12 @@ import { eventBus } from './eventbus';
 
 export class ListView extends SKContainer implements Observer {
 
+  getRandomColor() {
+    // helper function
+    // Generate a random hue, full saturation, and lightness at 50% for vibrant colors
+    const hue = Math.floor(Math.random() * 360);
+    return `hsl(${hue}, 100%, 50%)`;
+  }
 
   update(): void {
     // Simplest thing to do is clear all children and build todo
@@ -23,8 +29,17 @@ export class ListView extends SKContainer implements Observer {
 
     // go through list of Todos, create a View for each
     this.model.all().forEach((t) => {
-      this.addChild(new TodoView(this.model, t.id));
+      this.addChild(new TodoView(this.model, t.id, this.getRandomColor()));
     });
+  }
+
+  initializeSquares() {
+    for (let i = 0; i < 8; i++) {
+        // Generate a random color for each square
+        const color = this.getRandomColor();
+        const squareView = new TodoView(this.model, i, color);
+        this.addChild(squareView);
+    }
   }
 
   constructor(private model: Model) {
