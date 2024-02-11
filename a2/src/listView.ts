@@ -9,7 +9,6 @@ import {
 // local imports
 import { Observer } from "./observer";
 import { Model } from "./model";
-import { makeStackColLayout } from "./stackCol";
 import { TodoView } from "./todoView";
 import { eventBus } from './eventbus';
 
