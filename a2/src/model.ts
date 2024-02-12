@@ -3,7 +3,6 @@ import { Subject } from "./observer";
 
 type Todo = {
   id: number;
-  text: string;
   done: boolean;
   color: string;
 };
@@ -27,12 +26,12 @@ export class Model extends Subject {
   // model "business logic" (CRUD)
 
   // Create
-  create(task: string) {
+  create() {
     if (this.num < 20) {
-      const newcolor = getRandomColor(); // 调用随机颜色生成函数
+      const newcolor = getRandomColor();
       this.todos = [
         ...this.todos,
-        { id: uniqueId++, text: task, done: false, color: newcolor },
+        { id: uniqueId++, done: false, color: newcolor },
       ];
       this.notifyObservers();
     }
@@ -50,7 +49,7 @@ export class Model extends Subject {
   }
 
   // Update
-  update(id: number, todo: { text?: string; done?: boolean }) {
+  update(id: number, todo: { done?: boolean }) {
     this.todos = this.todos.map((t) =>
       // if todo matches id, then spread it and replace
       // with defined properties in todo object argument

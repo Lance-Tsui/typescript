@@ -5,6 +5,7 @@ import { SKElement, SKElementProps, SKEvent, SKMouseEvent } from "simplekit/impe
 
 type SKContainerProps = SKElementProps & { fill?: string };
 
+
 export class SKSquare extends SKElement {
   public checked: boolean = false;
   constructor({ fill = "", ...elementProps }: SKContainerProps = {}) {

@@ -13,6 +13,7 @@ import {
 import { Model } from "./model";
 import { FormView } from "./formView";
 import { ListView } from "./listView";
+import { TodoView } from "./todoView";
 import { makeStackColLayout } from "./stackCol";
 import { InfoView } from "./infoView";
 import { StatusView } from "./statusView";

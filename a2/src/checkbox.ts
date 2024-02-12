@@ -6,24 +6,28 @@ import {
   Style,
 } from "simplekit/imperative-mode";
 
-export type SKCheckboxProps = SKElementProps & { checked?: boolean };
+export type SKCheckboxProps = SKElementProps & { checked?: boolean, color?: string };
 
 export class SKCheckbox extends SKElement {
   constructor({
     checked = false,
+    color = "",
     ...elementProps
   }: SKCheckboxProps = {}) {
     super(elementProps);
     this.checked = checked;
-    this.width = Style.minElementSize - 10;
-    this.height = Style.minElementSize - 10;
+    this.color = color;
+    this.width = 50;
+    this.height = 50;
     this.calculateBasis();
     this.doLayout();
   }
 
-  state: "idle" | "hover" | "down" = "idle";
+  public state: "idle" | "hover" | "down" = "idle";
 
-  checked: boolean;
+  public checked: boolean;
+
+  public color: string;
 
   handleMouseEvent(me: SKMouseEvent) {
     switch (me.type) {
@@ -75,8 +79,7 @@ export class SKCheckbox extends SKElement {
     // normal background
     gc.beginPath();
     gc.rect(this.x, this.y, w, h);
-    gc.fillStyle =
-      this.state == "down" ? Style.highlightColour : "whitesmoke";
+    gc.fillStyle = this.color;
     gc.strokeStyle = "black";
     // change fill to show down state
     gc.lineWidth = this.state == "down" ? 4 : 2;
@@ -86,14 +89,7 @@ export class SKCheckbox extends SKElement {
 
     // checked state
     if (this.checked === true) {
-      gc.beginPath();
-      gc.moveTo(this.x + 5, this.y + 5);
-      gc.lineTo(this.x + w - 5, this.y + h - 5);
-      gc.moveTo(this.x + w - 5, this.y + 5);
-      gc.lineTo(this.x + 5, this.y + h - 5);
-      gc.strokeStyle = "black";
-      gc.lineWidth = 2;
-      gc.stroke();
+
     }
 
     gc.restore();

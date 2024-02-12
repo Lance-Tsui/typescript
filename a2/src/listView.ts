@@ -30,7 +30,7 @@ export class ListView extends SKContainer implements Observer {
   initializeSquares() {
     this.clearChildren();
     for (let i = 0; i < 8; i++) {
-      this.model.create("square");
+      this.model.create();
     }
 
   }

@@ -8,39 +8,43 @@ import {
 // local imports
 import { Observer } from "./observer";
 import { Model } from "./model";
-import { SKSquare } from "./container";
+import { SKCheckbox } from "./checkbox";
 
 export class TodoView extends SKContainer implements Observer {
-
+  //#region observer pattern
 
   update() {
     const todo = this.model.todo(this.todoId);
     if (!todo) return;
+    this.checkbox.checked = todo.done;
   }
 
-  square = new SKSquare();
+  //#endregion
 
-  constructor(private model: Model, public todoId: number, fillcolor: string) {
+  checkbox = new SKCheckbox();
+
+
+  constructor(private model: Model, public todoId: number, public color: string) {
     super();
-    // view design
-    this.padding = 5;
+
     this.margin = 5;
-    this.fill = fillcolor;
-    this.width = 50;
-    this.height = 50;
-    this.border = "grey";
-    
+    this.padding = 5;
+    this.width = 55;
+    this.height = 55;
     // setup the view
     this.layoutMethod = Layout.makeFillRowLayout({ gap: 10 });
+    const todo = this.model.todo(todoId);
+    if (todo) {
+        this.checkbox = new SKCheckbox({ checked: todo.done, color: todo.color });
+        this.addChild(this.checkbox);
+    }
 
-    this.addChild(this.square);
+
 
     // controllers
-    this.square.addEventListener("action", () => {
-      this.square.checked = !this.square.checked;
-      model.update(todoId, { done: this.square.checked });
+    this.checkbox.addEventListener("action", () => {
+      model.update(todoId, { done: this.checkbox.checked });
     });
-    
 
 
     // register with the model when we're ready

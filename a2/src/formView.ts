@@ -35,11 +35,10 @@ export class FormView extends SKContainer implements Observer {
 
     // Setup event listeners for buttons
     this.addButton.addEventListener("action", () => {
-        const text = "square";
         if (model.selectId !== null) {
-          model.update(model.selectId, { text });
+          model.update(model.selectId, {  });
         } else {
-          model.create(text);
+          model.create();
         }
     });
     this.addStarButton.addEventListener("action", () => {/* Handle Add Star action */});
