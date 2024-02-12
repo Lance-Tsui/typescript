@@ -5,7 +5,7 @@ import {
   } from "simplekit/imperative-mode";
   
   // Enhanced factory function with "gap" parameter for spacing between elements
-  export function makeDeuxRowLayout(gap = 0): LayoutMethod {
+  export function makeDeuxRowLayout(): LayoutMethod {
     return (boundsWidth: number, boundsHeight: number, elements: SKElement[]) => {
       return deuxRowLayout(boundsWidth, boundsHeight, elements);
     };
@@ -25,7 +25,7 @@ import {
     if (elements.length > 0) {
       
       const firstElement = elements[0];
-      firstElement.x = boundsWidth / 2;
+      firstElement.x = (boundsWidth - firstElement.width) / 2;
       firstElement.y = y;
       if (firstElement.fillWidth) {
         firstElement.widthLayout = boundsWidth;
@@ -37,7 +37,7 @@ import {
     }
   
     // Elements for the second row (assuming remaining elements go here)
-    let x = boundsWidth / 2;
+    let x = (boundsWidth - elements[0].width) / 2;
     for (let i = 1; i < elements.length; i++) {
       const el = elements[i];
       el.x = x;
@@ -46,10 +46,10 @@ import {
       if (el.fillWidth && elements.length - 1 > 1) {
         // If more than one element in the second row, adjust widths accordingly
         el.widthLayout = (boundsWidth - 25 * (elements.length - 2)) / (elements.length - 1);
-        x += el.widthLayout + 25; // Add gap between elements
+        x += el.widthLayout + 10; // Add gap between elements
       } else {
         // If only one element or fillWidth is not set, use its layout width
-        x += el.widthLayout + 25;
+        x += el.widthLayout + 10;
       }
   
       newBounds.width = Math.max(newBounds.width, x);
