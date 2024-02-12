@@ -17,21 +17,23 @@ export class StatusView extends SKContainer implements Observer {
 
   update(): void {
     const num = this.model.num;
+    let lefttext = "";
+    let righttext = "";
     if (this.model.selectId !== null) {
       this.leftMessage.text = `edit id#${this.model.selectId}`;
     } else {
-      let text = `${num} shape${num > 1 ? "s" : ""}`;
+      lefttext = `${num} shape${num > 1 ? "s" : ""}`;
       if (this.model.numDone > 0) {
-        text += ` (${this.model.numDone} selected)`;
+        righttext += `selected ${this.model.numDone}`;
       }
 
       if (this.model.num == 20) {
-        text += " FULL";
+        lefttext += " FULL";
       }
 
-      this.leftMessage.text = text;
+      this.leftMessage.text = lefttext;
     }
-    this.rightMessage.text = "hello world";
+    this.rightMessage.text = righttext;
   }
 
   constructor(private model: Model) {

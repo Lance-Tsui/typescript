@@ -17,20 +17,13 @@ export class InfoView extends SKContainer implements Observer {
   //#region observer pattern
 
   update(): void {
-    const num = this.model.num;
+    const num = this.model.numDone;
     if (num === 0) {
-      this.message.text = "no todos!";
-    } else if (num === 20) {
-      this.message.text = "FULL";
-    } else if (this.model.selectId !== null) {
-      this.message.text = `edit id#${this.model.selectId}`;
+      this.message.text = "Select One";
+    } else if (this.model.numDone > 1) {
+      this.message.text = "Too Many Selected";
     } else {
-      let text = `${num} todo${num > 1 ? "s" : ""}`;
-      if (this.model.numDone > 0) {
-        text += ` (${this.model.numDone} done)`;
-      }
-
-      this.message.text = text;
+      this.message.text = `edit id#${this.model.selectId}`;
     }
   }
 

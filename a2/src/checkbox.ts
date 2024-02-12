@@ -67,6 +67,16 @@ export class SKCheckbox extends SKElement {
 
     gc.translate(this.margin, this.margin);
 
+
+    // checked state
+    if (this.checked === true) {
+      gc.beginPath();
+      gc.rect(this.x, this.y, w, h);
+      gc.strokeStyle = Style.focusColour;
+      gc.lineWidth = 8;
+      gc.stroke();
+    }
+    
     // thick highlight rect
     if (this.state == "hover" || this.state == "down") {
       gc.beginPath();
@@ -87,10 +97,7 @@ export class SKCheckbox extends SKElement {
     gc.stroke();
     gc.clip(); // clip text if it's wider than text area
 
-    // checked state
-    if (this.checked === true) {
 
-    }
 
     gc.restore();
 
