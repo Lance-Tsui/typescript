@@ -10,6 +10,7 @@ import {
 import { Observer } from "./observer";
 import { Model } from "./model";
 import { makeRowLayoutWithJustifyContent } from "./justifyRow";
+import { getShiftKeyDown } from "./shiftDown";
 
 export class StatusView extends SKContainer implements Observer {
   leftMessage = new SKLabel({ text: "?" });
@@ -21,7 +22,10 @@ export class StatusView extends SKContainer implements Observer {
     let righttext = "";
 
     lefttext = `${num} shape${num > 1 ? "s" : ""}`;
-    righttext = `selected ${this.model.numDone}`;
+    if(getShiftKeyDown()) {
+      righttext += "SHIFT";
+    }
+    righttext += ` selected ${this.model.numDone}`;
 
     if (this.model.num == 20) {
       lefttext += " FULL";

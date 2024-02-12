@@ -29,7 +29,7 @@ export function rowLayoutWithJustifyContent(
 
   // 最后一个元素对齐到右边
   const lastIndex = elements.length - 1;
-  elements[lastIndex].x = boundsWidth - elements[lastIndex].widthLayout - 50;
+  elements[lastIndex].x = boundsWidth - elements[lastIndex].widthLayout - 75;
   elements[lastIndex].y = (boundsHeight - elements[lastIndex].heightLayout) / 2; // 垂直居中
 
   // 设置固定高度
