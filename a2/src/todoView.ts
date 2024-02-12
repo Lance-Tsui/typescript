@@ -17,7 +17,6 @@ export class TodoView extends SKContainer implements Observer {
   update() {
     const todo = this.model.todo(this.todoId);
     if (!todo) return;
-    console.log(todo);
     this.checkbox.checked = todo.done;
     
   }
@@ -47,9 +46,14 @@ export class TodoView extends SKContainer implements Observer {
     // controllers
     this.checkbox.addEventListener("action", () => {
       model.update(todoId, { done: this.checkbox.checked });
+      const shiftDown = getShiftKeyDown();
       if (this.checkbox.checked) {
         model.select(todoId);
+        if (!shiftDown) {
+          model.deselectOther(todoId);
+        }
       }
+
     });
 
 

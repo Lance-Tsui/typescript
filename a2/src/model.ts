@@ -76,4 +76,14 @@ export class Model extends Subject {
     if (this._selectId === id) this._selectId = null;
     this.notifyObservers();
   }
+
+  deselectOther(selectedId: number) {
+    this.todos = this.todos.map(todo => {
+      if (todo.id !== selectedId) {
+        return { ...todo, done: false };
+      }
+      return todo;
+    });
+    this.notifyObservers();
+  }
 }
