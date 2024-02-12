@@ -18,7 +18,6 @@ export class InfoView extends SKContainer implements Observer {
 
   update(): void {
     const num = this.model.numDone;
-    console.log(this.model);
     if (num === 0) {
       this.message.text = "Select One";
     } else if (this.model.numDone > 1) {

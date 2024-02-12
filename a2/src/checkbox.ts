@@ -2,9 +2,12 @@ import {
   SKElement,
   SKElementProps,
   SKEvent,
+  SKKeyboardEvent,
   SKMouseEvent,
   Style,
 } from "simplekit/imperative-mode";
+
+import { getShiftKeyDown } from "./shiftDown";
 
 export type SKCheckboxProps = SKElementProps & { checked?: boolean, color?: string };
 
@@ -36,7 +39,7 @@ export class SKCheckbox extends SKElement {
         return true;
         break;
       case "mouseup":
-        this.state = "hover";
+        this.state = "idle";
         this.checked = !this.checked;
         // return true if a listener was registered
         return this.sendEvent({
@@ -76,7 +79,7 @@ export class SKCheckbox extends SKElement {
       gc.lineWidth = 8;
       gc.stroke();
     }
-    
+
     // thick highlight rect
     if (this.state == "hover" || this.state == "down") {
       gc.beginPath();

@@ -7,6 +7,7 @@ import {
   SKEvent,
   setSKEventListener,
   SKResizeEvent,
+  SKKeyboardEvent,
 } from "simplekit/imperative-mode";
 
 // local imports
@@ -23,12 +24,24 @@ import { eventBus } from "./eventbus";
 
 
 setSKEventListener((e: SKEvent) => {
+  
+  if (e.type === 'keydown') {
+    const {key: key} = e as SKKeyboardEvent;
+    eventBus.emit('keydown', { key });
+  }
+
+  if (e.type === 'keyup') {
+    const {key: key} = e as SKKeyboardEvent;
+    eventBus.emit('keyup', { key });
+  }
+
   if (e.type === 'resize') {
     const {width: width, height: height} = e as SKResizeEvent;
 
     eventBus.emit('resize', { width, height });
   }
 });
+
 
 
 

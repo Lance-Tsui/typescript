@@ -9,6 +9,7 @@ import {
 import { Observer } from "./observer";
 import { Model } from "./model";
 import { SKCheckbox } from "./checkbox";
+import { getShiftKeyDown } from "./shiftDown";
 
 export class TodoView extends SKContainer implements Observer {
   //#region observer pattern
@@ -16,7 +17,9 @@ export class TodoView extends SKContainer implements Observer {
   update() {
     const todo = this.model.todo(this.todoId);
     if (!todo) return;
+    console.log(todo);
     this.checkbox.checked = todo.done;
+    
   }
 
   //#endregion

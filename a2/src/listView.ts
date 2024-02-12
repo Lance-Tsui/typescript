@@ -4,6 +4,7 @@ import {
   Layout,
   setSKEventListener,
   SKResizeEvent,
+  SKKeyboardEvent,
 } from "simplekit/imperative-mode";
 
 // local imports
@@ -11,7 +12,7 @@ import { Observer } from "./observer";
 import { Model } from "./model";
 import { TodoView } from "./todoView";
 import { eventBus } from './eventbus';
-import { getRandomColor } from "./colorScheme";
+import { setShiftKeyDown } from "./shiftDown";
 
 export class ListView extends SKContainer implements Observer {
 
@@ -60,6 +61,16 @@ export class ListView extends SKContainer implements Observer {
       this.height = e.height - 100;
 
     });
+
+    eventBus.on('keydown', (e: SKKeyboardEvent) => {
+      setShiftKeyDown(true);
+    });
+
+    eventBus.on('keyup', (e: SKKeyboardEvent) => {
+      setShiftKeyDown(false);
+    });
+
+    
   }
 
 }
