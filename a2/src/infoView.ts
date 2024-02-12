@@ -12,7 +12,7 @@ import { eventBus } from './eventbus';
 import { Observer } from "./observer";
 import { Model } from "./model";
 import { getHueFromHSL } from "./colorScheme";
-import { makeStackColLayout } from "./stackCol";
+import { makeDeuxRowLayout } from "./deuxRow";
 
 export class InfoView extends SKContainer implements Observer {
   //#region observer pattern
@@ -31,8 +31,9 @@ export class InfoView extends SKContainer implements Observer {
       if (color) {
         this.squareDisplay.fill = color;
         this.hueInput.text = getHueFromHSL(color);
+        this.layoutMethod = makeDeuxRowLayout();
         this.addChild(this.squareDisplay);
-        // this.addChild(this.hueDisplay);
+        this.addChild(this.hueDisplay);
         this.addChild(this.hueInput);
         
       }
@@ -42,12 +43,14 @@ export class InfoView extends SKContainer implements Observer {
       this.removeChild(this.squareDisplay);
       this.removeChild(this.hueInput);
       this.removeChild(this.hueDisplay);
+      this.layoutMethod = Layout.makeCentredLayout();
       this.message.text = "Select One";
       this.addChild(this.message);
     } else if (this.model.numDone > 1) {
       this.removeChild(this.squareDisplay);
       this.removeChild(this.hueInput);
       this.removeChild(this.hueDisplay);
+      this.layoutMethod = Layout.makeCentredLayout();
       this.message.text = "Too Many Selected";
       this.addChild(this.message);
     }
