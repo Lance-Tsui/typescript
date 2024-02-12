@@ -48,6 +48,10 @@ export class Model extends Subject {
     return [...this.todos];
   }
 
+  get(): Todo | undefined {
+    return this.todos.find((t) => t.done === true);
+  }
+
   // Update
   update(id: number, todo: { done?: boolean }) {
     this.todos = this.todos.map((t) =>
