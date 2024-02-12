@@ -42,7 +42,13 @@ export class FormView extends SKContainer implements Observer {
         }
     });
     this.addStarButton.addEventListener("action", () => {/* Handle Add Star action */});
-    this.deleteButton.addEventListener("action", () => {/* Handle Delete action */});
+    this.deleteButton.addEventListener("action", () => {
+      this.model.all().forEach(todo => {
+        if (todo.done) {
+          model.delete(todo.id);
+        }
+      });
+    });
     this.clearButton.addEventListener("action", () => {
       this.model.all().forEach(todo => {
         if (todo) {

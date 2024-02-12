@@ -12,7 +12,7 @@ let uniqueId = 1;
 
 export class Model extends Subject {
   // model data (i.e. model state)
-  private todos: Todo[] = [];
+  public todos: Todo[] = [];
 
   // information methods
   get num() {
