@@ -4,7 +4,6 @@ import {
   Size,
 } from "simplekit/imperative-mode";
 
-// 创建一个行布局的工厂函数
 export function makeRowLayoutWithJustifyContent(): LayoutMethod {
   return (
     boundsWidth: number,
@@ -15,7 +14,6 @@ export function makeRowLayoutWithJustifyContent(): LayoutMethod {
   };
 }
 
-// 实现左右对齐的行布局
 export function rowLayoutWithJustifyContent(
   boundsWidth: number,
   boundsHeight: number,
@@ -23,18 +21,18 @@ export function rowLayoutWithJustifyContent(
 ): Size {
   if (elements.length < 2) return { width: boundsWidth, height: boundsHeight };
 
-  // 第一个元素对齐到左边
+  // first element left
   elements[0].x = 75;
-  elements[0].y = (boundsHeight - elements[0].heightLayout) / 2; // 垂直居中
+  elements[0].y = (boundsHeight - elements[0].heightLayout) / 2;
 
-  // 最后一个元素对齐到右边
+  // second row right
   const lastIndex = elements.length - 1;
   elements[lastIndex].x = boundsWidth - elements[lastIndex].widthLayout - 75;
-  elements[lastIndex].y = (boundsHeight - elements[lastIndex].heightLayout) / 2; // 垂直居中
+  elements[lastIndex].y = (boundsHeight - elements[lastIndex].heightLayout) / 2;
 
-  // 设置固定高度
+  // fixed height
   elements.forEach(el => {
-    el.heightLayout = 50; // 或其他逻辑
+    el.heightLayout = 50;
   });
 
   return { width: boundsWidth, height: boundsHeight };

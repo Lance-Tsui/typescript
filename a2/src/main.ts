@@ -42,9 +42,6 @@ setSKEventListener((e: SKEvent) => {
   }
 });
 
-
-
-
 // data
 const model = new Model();
 

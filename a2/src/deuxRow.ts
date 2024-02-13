@@ -25,7 +25,9 @@ import {
     if (elements.length > 0) {
       
       const firstElement = elements[0];
-      firstElement.x = (boundsWidth - firstElement.width) / 2;
+      if (firstElement.width) {
+        firstElement.x = (boundsWidth - firstElement.width) / 2;
+      }
       firstElement.y = y;
       if (firstElement.fillWidth) {
         firstElement.widthLayout = boundsWidth;
@@ -37,7 +39,11 @@ import {
     }
   
     // Elements for the second row (assuming remaining elements go here)
-    let x = (boundsWidth - elements[0].width) / 2;
+    let x = 0;
+    if (elements[0].width) {
+      x = (boundsWidth - elements[0].width) / 2;
+    }
+    
     for (let i = 1; i < elements.length; i++) {
       const el = elements[i];
       el.x = x;

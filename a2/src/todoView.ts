@@ -56,8 +56,6 @@ export class TodoView extends SKContainer implements Observer {
 
     });
 
-
-
     // register with the model when we're ready
     this.model.addObserver(this);
   }

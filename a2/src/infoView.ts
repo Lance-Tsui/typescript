@@ -78,7 +78,9 @@ export class InfoView extends SKContainer implements Observer {
     this.hueInput.width = 50;
     this.hueDisplay = new SKLabel({ text: "Hue" });
     this.hueInput.addEventListener('textchanged', () => {
+      if (this.model.selectId) {
         this.model.updatecolor(this.model.selectId, this.hueInput.text);
+      }
     });
 
     this.addChild(this.message);

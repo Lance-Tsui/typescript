@@ -7,8 +7,6 @@ import {
   Style,
 } from "simplekit/imperative-mode";
 
-import { getShiftKeyDown } from "./shiftDown";
-
 export type SKCheckboxProps = SKElementProps & { checked?: boolean, color?: string };
 
 export class SKCheckbox extends SKElement {
