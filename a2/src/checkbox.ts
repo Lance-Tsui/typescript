@@ -98,8 +98,6 @@ export class SKCheckbox extends SKElement {
     gc.stroke();
     gc.clip(); // clip text if it's wider than text area
 
-
-
     gc.restore();
 
     // element draws debug viz if flag is set
