@@ -4,6 +4,7 @@ import {
   Layout,
   SKResizeEvent,
   SKTextfield,
+  SKKeyboardEvent,
 } from "simplekit/imperative-mode";
 
 import { eventBus } from './eventbus';
@@ -30,7 +31,9 @@ export class InfoView extends SKContainer implements Observer {
       
       if (color) {
         this.squareDisplay.fill = color;
-        this.hueInput.text = getHueFromHSL(color);
+        this.hueInput.text = String(getHueFromHSL(color));
+
+        
         this.layoutMethod = makeDeuxRowLayout();
         this.addChild(this.squareDisplay);
         this.addChild(this.hueDisplay);
@@ -74,6 +77,10 @@ export class InfoView extends SKContainer implements Observer {
     this.hueInput = new SKTextfield({});
     this.hueInput.width = 50;
     this.hueDisplay = new SKLabel({ text: "Hue" });
+    this.hueInput.addEventListener('textchanged', () => {
+        this.model.updatecolor(this.model.selectId, this.hueInput.text);
+    });
+
     this.addChild(this.message);
 
     // register with the model when we're ready

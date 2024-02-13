@@ -1,4 +1,4 @@
-import { getRandomColor } from "./colorScheme";
+import { getFixedColor, getRandomColor, isHueStringValid } from "./colorScheme";
 import { Subject } from "./observer";
 
 type Todo = {
@@ -61,6 +61,15 @@ export class Model extends Subject {
     );
     this._selectId = null;
     this.notifyObservers();
+  }
+
+  updatecolor(id: number, color: string) {
+    if(isHueStringValid(color)) {
+      this.todos = this.todos.map((t) =>
+        t.id === id ? { ...t, color: getFixedColor(color) } : t
+      );
+      this.notifyObservers();
+    }
   }
 
   // select a todo to edit
