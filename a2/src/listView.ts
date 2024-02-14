@@ -60,11 +60,15 @@ export class ListView extends SKContainer implements Observer {
     });
 
     eventBus.on('keydown', (e: SKKeyboardEvent) => {
-      setShiftKeyDown(true);
+      if (e.key == "Shift") {
+        setShiftKeyDown(true);
+      }
     });
 
     eventBus.on('keyup', (e: SKKeyboardEvent) => {
-      setShiftKeyDown(false);
+      if (e.key == "Shift") {
+        setShiftKeyDown(false);
+      }
     });
 
     
