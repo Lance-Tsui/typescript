@@ -5,18 +5,29 @@ div.todo {
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 60px;
 }
 
-div.todo > span {
-  flex: 1;
+/* Styling the checkbox directly might not work as expected across all browsers */
+input[type="checkbox"] {
+  -webkit-appearance: none; /* Remove default styling for WebKit browsers */
+  -moz-appearance: none; /* Remove default styling for Mozilla browsers */
+  appearance: none; /* Remove default styling */
+  margin: 0;
+  font-size: 30px; /* This enlarges the custom checkbox */
+  width: 50px; /* Width of the square */
+  height: 50px; /* Height of the square */
+  background-color: white; /* Background color of the square */
+  border: 1px solid black; /* Border of the square */
+  cursor: pointer;
 }
 
-/* 
-:checked is a pseudo class  
-+ is "next sibling" selector 
-the rule means: when checkbox is checked, render the 
-text in the span next to it with a line-through it 
-*/
-input:checked + span {
-  text-decoration: line-through;
+/* Custom checkmark style using :after pseudo-element */
+input[type="checkbox"]:checked:after {
+  content: '✓';
+  display: block;
+  text-align: center;
+  color: black;
+  font-size: 30px;
+  line-height: 50px; /* Aligns the checkmark vertically */
 }

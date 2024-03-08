@@ -1,5 +1,6 @@
 div#list {
   background-color: whitesmoke;
-  flex: 1;
+  display: ruby;
   overflow-y: scroll;
+  flex: 1;
 }
