@@ -23,6 +23,16 @@ export class FormView implements View {
     this.addButton = this.createButton("Add");
     this.container.appendChild(this.addButton);
 
+    this.addButton.addEventListener("click", () => {
+      const text = this.dropdown.value;
+      if (model.selectId !== null) {
+        model.update(model.selectId, { text });
+      } else {
+        model.create(text);
+      }
+    });
+    this.container.appendChild(this.addButton);
+
     // Dropdown
     this.dropdown = document.createElement("select");
 
