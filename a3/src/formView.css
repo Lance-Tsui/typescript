@@ -1,0 +1,11 @@
+div#form {
+  background-color: gray;
+  padding: 10px;
+  display: flex;
+  gap: 10px; /* Optional: use if you want additional space when elements wrap */
+  height: 50px;
+}
+
+div#form > select, div#form > button {
+  width: 80px; /* Sets the width of both the buttons and the dropdown */
+}
