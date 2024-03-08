@@ -25,10 +25,24 @@ export class FormView implements View {
 
     // Dropdown
     this.dropdown = document.createElement("select");
-    const optionSquare = document.createElement("option");
-    optionSquare.value = "square";
-    optionSquare.text = "Square";
-    this.dropdown.appendChild(optionSquare);
+
+    // Define the options for the dropdown
+    const options = [
+      { value: "square", text: "Square" },
+      { value: "star", text: "Star" },
+      { value: "bullseye", text: "Bullseye" },
+      { value: "cat", text: "Cat" }
+    ];
+    
+    // Create and append the option elements to the dropdown
+    options.forEach(optionInfo => {
+      const option = document.createElement("option");
+      option.value = optionInfo.value;
+      option.text = optionInfo.text;
+      this.dropdown.appendChild(option);
+    });
+    
+    // Append the dropdown to the container
     this.container.appendChild(this.dropdown);
 
     // Delete button
