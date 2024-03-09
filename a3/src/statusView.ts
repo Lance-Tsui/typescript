@@ -31,11 +31,22 @@ export class StatusView implements View {
       this.model.addObserver(this);
     }
   
-    update() {
-      // Assuming the model has methods to get textA and textB
-      // Update these methods to retrieve data accordingly
-      this.leftColumn.textContent = "left column"; // Example method
-      this.rightColumn.textContent = "right column"; // Example method
+    update(): void {
+      const num = this.model.num;
+      let lefttext = "";
+      let righttext = "";
+  
+      lefttext = `${num} shape${num > 1 ? "s" : ""}`;
+
+      righttext += ` selected ${this.model.numDone}`;
+  
+      if (this.model.num == 20) {
+        lefttext += " FULL";
+      }
+  
+      this.leftColumn.textContent = lefttext;
+      
+      this.rightColumn.textContent = righttext;
     }
   
     private createStatusColumn(textId: string): HTMLDivElement {
