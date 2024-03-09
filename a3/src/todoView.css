@@ -1,10 +1,9 @@
 div.todo {
   margin: 5px;
   padding: 5px;
-  border: 1px solid lightgray;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
   width: 60px;
 }
 
@@ -29,4 +28,9 @@ input[type="checkbox"]:checked:after {
   color: black;
   font-size: 30px;
   line-height: 50px; /* Aligns the checkmark vertically */
+}
+
+input[type="checkbox"]:hover {
+  border-color: lightblue;
+  border-width: 4px;
 }

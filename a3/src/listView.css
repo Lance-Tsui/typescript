@@ -3,4 +3,5 @@ div#list {
   display: ruby;
   overflow-y: scroll;
   flex: 1;
+  border: none;
 }
