@@ -72,7 +72,11 @@ export class FormView implements View {
     });
 
     this.deleteButton.addEventListener("click", () => {
-      // Implement logic for delete
+      this.model.all().forEach(todo => {
+        if (todo.done) {
+          model.delete(todo.id);
+        }
+      });
     });
 
     this.clearButton.addEventListener("click", () => {

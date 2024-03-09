@@ -20,11 +20,8 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
-/* Custom checkmark style using :after pseudo-element */
-input[type="checkbox"]:checked:after {
-  display: block;
-  font-size: 30px;
-  line-height: 50px; /* Aligns the checkmark vertically */
+input[type="checkbox"]:checked {
+  border: 4px solid darkblue;
 }
 
 input[type="checkbox"]:hover {
