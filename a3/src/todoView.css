@@ -24,7 +24,6 @@ input[type="checkbox"] {
 
 /* Custom checkmark style using :after pseudo-element */
 input[type="checkbox"]:checked:after {
-  content: '✓';
   display: block;
   text-align: center;
   color: black;
