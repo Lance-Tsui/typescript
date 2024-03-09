@@ -1,9 +1,10 @@
 import { Subject } from "./observer";
+import { getFixedColor, hueColor, isHueStringValid } from "./color";
 
 type Todo = {
   id: number;
-  text: string;
   done: boolean;
+  color: string;
 };
 
 // super simple "id generator"
@@ -26,11 +27,14 @@ export class Model extends Subject {
 
   // Create
   create(task: string) {
-    this.todos = [
-      ...this.todos,
-      { id: uniqueId++, text: task, done: false },
-    ];
-    this.notifyObservers();
+    if (this.num < 20) {
+      const newcolor = hueColor();
+      this.todos = [
+        ...this.todos,
+        { id: uniqueId++, done: false, color: newcolor },
+      ];
+      this.notifyObservers();
+    }
   }
 
   // Read

@@ -23,13 +23,15 @@ export class TodoView implements View {
     return this.container;
   }
 
-  constructor(private model: Model, private todoId: number) {
+  constructor(private model: Model, private todoId: number, color: string) {
     // setup the view root container
     this.container = document.createElement("div");
     this.container.className = "todo";
 
     // setup the view
     this.checkbox.type = "checkbox";
+
+    this.checkbox.style.backgroundColor = color;
 
     // add widgets to the view
     this.container.appendChild(this.checkbox);

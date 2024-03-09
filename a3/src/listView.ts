@@ -20,7 +20,7 @@ export class ListView implements View {
 
     // go through list of Todos, create a View for each
     this.model.all().forEach((t) => {
-      this.container.appendChild(new TodoView(this.model, t.id).root);
+      this.container.appendChild(new TodoView(this.model, t.id, t.color).root,);
     });
   }
 
