@@ -8,18 +8,14 @@ export class InfoView implements View {
   //#region observer pattern
 
   update() {
-    const num = this.model.num;
-    if (num === 0) {
-      this.container.innerText = "no todos!";
-    } else if (this.model.selectId !== null) {
-      this.container.innerText = `edit id#${this.model.selectId}`;
-    } else {
-      let text = `${num} todo${num > 1 ? "s" : ""}`;
-      if (this.model.numDone > 0) {
-        text += ` (${this.model.numDone} done)`;
-      }
+    const num = this.model.numDone;
+    if (num == 1) {
 
-      this.container.innerText = text;
+    }
+    else if (num === 0) {
+      this.container.innerText = "Select One";
+    } else if (this.model.numDone > 1) {
+      this.container.innerText = "Too Many Selected";
     }
   }
 
