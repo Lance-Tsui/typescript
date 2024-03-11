@@ -27,7 +27,7 @@ export class Model extends Subject {
 
   // Create
   create(task: string) {
-    if (this.num < 20) {
+    if (this.num < 25) {
       const newcolor = hueColor();
       this.todos = [
         ...this.todos,

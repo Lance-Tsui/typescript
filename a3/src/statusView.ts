@@ -40,7 +40,7 @@ export class StatusView implements View {
 
       righttext += ` selected ${this.model.numDone}`;
   
-      if (this.model.num == 20) {
+      if (this.model.num == 25) {
         lefttext += " FULL";
       }
   
