@@ -26,17 +26,16 @@ export class InfoView implements View {
       // Assuming model provides selected square's details
       const selectedSquare = this.model.get();
 
-      var squareId: number | null;
-
-      squareId = selectedSquare?.id;
+      var squareId = selectedSquare?.id;
 
       // The square representation, e.g., a div with background color
       const square = document.createElement('div');
       square.style.width = '100px'; // Scale as large as possible within the display area
       square.style.height = '100px';
 
-      square.style.backgroundColor = selectedSquare.color;
-  
+      if (selectedSquare) {
+        square.style.backgroundColor = selectedSquare.color;
+      
       const editForm = document.createElement('div');
       editForm.className = 'edit-form';
 
@@ -51,13 +50,13 @@ export class InfoView implements View {
       const hueInput = document.createElement('input');
       hueInput.type = 'number';
       hueInput.id = 'hueInput'; // Set an id for the input to associate with the label
-
       hueInput.value = getHue(selectedSquare.color); // Assuming getHue is a function that extracts the hue value
-      
+
       hueInput.min = '0';
       hueInput.max = '360';
       hueInput.addEventListener('input', (e) => {
-        const value = parseInt(e.target.value, 10);
+        const target = e.target as HTMLInputElement;
+        const value = parseInt(target.value, 10);
         if (isNaN(value) || value < 0 || value > 360) {
             hueInput.style.border = '2px solid red';
         } else {
@@ -68,9 +67,7 @@ export class InfoView implements View {
             }
         }
         
-    });
-    
-
+      });
       squareDisplay.appendChild(square);
       
       hueRow.appendChild(hueLabel);
@@ -78,19 +75,18 @@ export class InfoView implements View {
 
       editForm.appendChild(hueRow);
             
-  
       // Add both the display and form to the container
       this.container.appendChild(squareDisplay);
       this.container.appendChild(editForm);
-  
-    } else if (num === 0) {
-      this.container.innerText = "Select One";
-    } else if (num > 1) {
-      this.container.innerText = "Too Many Selected";
-    }
-  }
 
-  // the view root container
+        } 
+      } else if (num == 0) {
+        this.container.innerText = "Select One";
+      } else if (num > 1) {
+        this.container.innerText = "Too Many Selected";
+      }
+    }
+
   private container: HTMLDivElement;
   get root(): HTMLDivElement {
     return this.container;
