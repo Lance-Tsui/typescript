@@ -50,17 +50,20 @@ export class InfoView implements View {
       const hueInput = document.createElement('input');
       hueInput.type = 'number';
       hueInput.id = 'hueInput'; // Set an id for the input to associate with the label
-      hueInput.value = getHue(selectedSquare.color); // Assuming getHue is a function that extracts the hue value
+      const hueVal = getHue(selectedSquare.color); // getHue might return a number or null
+
+      // Convert the hueValue to a string, or use an empty string if hueValue is null
+      hueInput.value = hueVal !== null ? hueVal.toString() : "";
 
       hueInput.min = '0';
       hueInput.max = '360';
       hueInput.addEventListener('input', (e) => {
         const target = e.target as HTMLInputElement;
         const value = parseInt(target.value, 10);
-        if (isNaN(value) || value < 0 || value > 360) {
-            hueInput.style.border = '2px solid red';
+        if (isNaN(value) || value < 0 || value > 360 || target.value.trim() === '') {
+            target.classList.add('input-error');
         } else {
-            hueInput.style.border = '';
+            target.classList.remove('input-error');
             square.style.backgroundColor = getFixedColor(value.toString());
             if (squareId) {
                 this.model.updatecolor(squareId, getFixedColor(value.toString()));

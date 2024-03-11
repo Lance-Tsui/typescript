@@ -40,3 +40,15 @@ div#info {
 .edit-form input {
   width: 100px;
 }
+
+.edit-form input:focus {
+  outline: 2px solid blue; /* Change 'blue' to any specific color code if needed */
+}
+
+input:focus.input-error {
+  outline: 2px solid red; /* Change 'blue' to any specific color code if needed */
+}
+
+.input-error {
+  border: 2px solid red;
+}
