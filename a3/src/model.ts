@@ -48,6 +48,10 @@ export class Model extends Subject {
     return [...this.todos];
   }
 
+  get(): Todo | undefined {
+    return this.todos.find((t) => t.done === true);
+  }
+
   // Update
   update(id: number, todo: { text?: string; done?: boolean }) {
     this.todos = this.todos.map((t) =>
@@ -58,6 +62,14 @@ export class Model extends Subject {
     this._selectId = null;
     this.notifyObservers();
   }
+
+  updatecolor(id: number, color: string) {
+      this.todos = this.todos.map((t) =>
+        t.id === id ? { ...t, color: color } : t
+      );
+      this.notifyObservers();
+  }
+
 
   // select a todo to edit
   private _selectId: number | null = null;

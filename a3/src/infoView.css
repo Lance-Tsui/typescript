@@ -2,8 +2,38 @@
 
 div#info {
   background-color: lightgray;
-  width: 250px;
+  width: 33.33vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.square-display {
+  flex-grow: 2;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 10px;
+}
+
+.edit-form {
+  flex-grow: 1;
+  border: 1px solid grey;
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+
+.edit-form input {
+  width: 100px;
 }

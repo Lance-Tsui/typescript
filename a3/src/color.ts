@@ -6,7 +6,7 @@ export function hueColor() {
     return `hsl(${hue}, 100%, 50%)`;
 }
 
-export function getHueFromHSL(color: string) {
+export function getHue(color: string) {
 
     const match = color.match(/^hsl\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\)$/);
     if (match) {
