@@ -1,5 +1,5 @@
 div#form {
-  background-color: gray;
+  background-color: lightgray;
   padding: 10px;
   display: flex;
   gap: 10px; /* Optional: use if you want additional space when elements wrap */

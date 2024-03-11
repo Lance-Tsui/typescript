@@ -17,8 +17,8 @@ export class StatusView implements View {
       this.container.id = "status";
   
       // Create and append the columns
-      this.leftColumn = this.createStatusColumn('statusleft');
-      this.rightColumn = this.createStatusColumn('statusright');
+      this.leftColumn = this.createStatusColumn('left');
+      this.rightColumn = this.createStatusColumn('right');
   
       // Append columns to the container
       this.container.appendChild(this.leftColumn);
@@ -51,7 +51,7 @@ export class StatusView implements View {
   
     private createStatusColumn(textId: string): HTMLDivElement {
       const column = document.createElement("div");
-      column.classList.add("status-column");
+      column.classList.add("status-column" + textId);
       column.textContent = textId; // Initial text, can be removed or replaced as needed
       return column;
     }
