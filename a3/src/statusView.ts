@@ -2,6 +2,7 @@ import View from "./view";
 import { Model } from "./model";
 
 import "./statusView.css";
+import { getShiftKeyDown } from "./shiftDown";
 
 export class StatusView implements View {
     private container: HTMLDivElement;
@@ -37,6 +38,10 @@ export class StatusView implements View {
       let righttext = "";
   
       lefttext = `${num} shape${num > 1 ? "s" : ""}`;
+
+      if(getShiftKeyDown()) {
+        righttext += "SHIFT";
+      }
 
       righttext += ` selected ${this.model.numDone}`;
   

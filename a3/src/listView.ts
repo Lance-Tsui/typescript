@@ -2,6 +2,7 @@
 import View from "./view";
 import { Model } from "./model";
 import { TodoView } from "./todoView";
+import { setShiftKeyDown } from "./shiftDown";
 
 import "./listView.css";
 
@@ -22,6 +23,8 @@ export class ListView implements View {
     this.model.all().forEach((t) => {
       this.container.appendChild(new TodoView(this.model, t.id, t.color).root,);
     });
+
+    this.setupShiftKeyListener();
   }
 
   //#endregion
@@ -41,5 +44,19 @@ export class ListView implements View {
 
     // register with the model
     this.model.addObserver(this);
+  }
+
+  setupShiftKeyListener() {
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Shift') {
+        setShiftKeyDown(true);
+      }
+    });
+    
+    document.addEventListener('keyup', (event) => {
+      if (event.key === 'Shift') {
+        setShiftKeyDown(false);
+      }
+    });
   }
 }

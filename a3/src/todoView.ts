@@ -3,6 +3,7 @@ import View from "./view";
 import { Model } from "./model";
 
 import "./todoView.css";
+import { getShiftKeyDown } from "./shiftDown";
 
 export class TodoView implements View {
   //#region observer pattern
@@ -39,6 +40,14 @@ export class TodoView implements View {
     // controllers
     this.checkbox.addEventListener("click", () => {
       model.update(todoId, { done: this.checkbox.checked });
+      const shiftDown = getShiftKeyDown();
+      if (this.checkbox.checked) {
+        model.select(todoId);
+        if (!shiftDown) {
+          model.deselectOther(todoId);
+        }
+      }
+
     });
 
     // register with the model
