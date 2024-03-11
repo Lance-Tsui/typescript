@@ -64,9 +64,10 @@ export class InfoView implements View {
             target.classList.add('input-error');
         } else {
             target.classList.remove('input-error');
-            square.style.backgroundColor = getFixedColor(value.toString());
+            
             if (squareId) {
                 this.model.updatecolor(squareId, getFixedColor(value.toString()));
+                square.style.backgroundColor = getFixedColor(value.toString());
             }
         }
         
