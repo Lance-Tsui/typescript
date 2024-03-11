@@ -103,6 +103,12 @@ export class FormView implements View {
     } else {
       this.clearButton.disabled = false;
     }
+
+    if (this.model.get() == null) {
+      this.deleteButton.disabled = true;
+    } else {
+      this.deleteButton.disabled = false;
+    }
   }
 
   private createButton(label: string): HTMLButtonElement {
