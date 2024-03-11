@@ -92,7 +92,17 @@ export class FormView implements View {
   }
 
   update(): void {
-    // Your existing update logic here, adapt if needed
+    if (this.model.num >= 25) {
+      this.addButton.disabled = true;
+    } else {
+      this.addButton.disabled = false;
+    }
+
+    if (this.model.num == 0) {
+      this.clearButton.disabled = true;
+    } else {
+      this.clearButton.disabled = false;
+    }
   }
 
   private createButton(label: string): HTMLButtonElement {
