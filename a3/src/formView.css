@@ -7,6 +7,5 @@ div#form {
 }
 
 div#form > select, div#form > button {
-  width: 80px; /* Sets the width of both the buttons and the dropdown */
-  font-size: 14px;
+  width: 85px; /* Sets the width of both the buttons and the dropdown */
 }
