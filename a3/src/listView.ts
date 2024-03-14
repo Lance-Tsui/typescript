@@ -25,6 +25,8 @@ export class ListView implements View {
     });
 
     this.setupShiftKeyListener();
+
+    this.setupClearListener();
   }
 
   //#endregion
@@ -57,6 +59,22 @@ export class ListView implements View {
       if (event.key === 'Shift') {
         setShiftKeyDown(false);
       }
+    });
+  }
+
+  setupClearListener() {
+    let debounceTimer: number;
+    this.container.addEventListener("click", (event) => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        const isCheckboxClick = event.target instanceof HTMLInputElement && event.target.type === 'checkbox';
+        if (!isCheckboxClick) {
+          const anyDone = this.model.all().some((todo) => todo.done);
+          if (anyDone) {
+            this.model.deselectAll();
+          }
+        }
+      }, 200); // Adjust the debounce time (in milliseconds) as needed
     });
   }
 }

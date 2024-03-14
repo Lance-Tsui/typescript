@@ -98,4 +98,12 @@ export class Model extends Subject {
     });
     this.notifyObservers();
   }
+
+  deselectAll() {
+    this.todos = this.todos.map(todo => ({
+      ...todo,
+      done: false
+    }));
+    this.notifyObservers();
+  }  
 }
