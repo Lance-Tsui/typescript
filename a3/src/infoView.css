@@ -46,7 +46,7 @@ div#info {
 }
 
 input:focus.input-error {
-  outline: 2px solid red; /* Change 'blue' to any specific color code if needed */
+  outline: 2px solid red; /* Change 'red' to any specific color code if needed */
 }
 
 .input-error {
