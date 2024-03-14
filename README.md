@@ -20,6 +20,4 @@ use of copilot and other sources: no
 
 Known bugs:
 
-Implemented Square only
-
 When you edit the hue and change the hue value, you have to click again to do edits 
