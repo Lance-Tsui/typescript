@@ -1,5 +1,5 @@
 div#list {
-  background-color: whitesmoke;
+  background-color: white;
   flex: 1;
   overflow: scroll;
 }
