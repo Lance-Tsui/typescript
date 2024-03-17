@@ -3,6 +3,7 @@ div#form {
   padding: 10px;
   display: flex;
   gap: 10px;
+  height: 50px;
 }
 
 div#form > input[type="text"] {

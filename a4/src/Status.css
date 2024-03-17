@@ -1,0 +1,24 @@
+div#status {
+    background-color: lightgray;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    height: 50px;
+    justify-content: space-between; /* This will space out the child elements */
+  }
+  
+  .status-columnleft {
+    flex: 1; /* This makes both columns take up equal space */
+    display: flex;
+    align-items: center; /* Aligns the text vertically in the center */
+    justify-content: left; /* Centers the text horizontally */
+    margin-left: 10px;
+  }
+
+  .status-columnright {
+    flex: 1; /* This makes both columns take up equal space */
+    display: flex;
+    align-items: center; /* Aligns the text vertically in the center */
+    justify-content: right; /* Centers the text horizontally */
+    margin-right: 10px;
+  }

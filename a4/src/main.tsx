@@ -2,6 +2,7 @@ import { render } from "preact";
 
 import Form from "./Form";
 import List from "./List";
+import Status from "./Status";
 import Info from "./Info";
 
 import "./main.css";
@@ -17,6 +18,7 @@ export default function App() {
       <div id="left">
         <Form editId={id} initialValue={value || ""} />
         <List />
+        <Status />
       </div>
       <Info />
     </>
