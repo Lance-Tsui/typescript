@@ -12,10 +12,8 @@ div.todo {
 .todo > input[type="checkbox"] {
   appearance: none; /* Remove default styling */
   margin: 0;
-  font-size: 30px; /* This enlarges the custom checkbox */
   width: 50px; /* Width of the square */
   height: 50px; /* Height of the square */
-  border: 1px solid black; /* Initial border of the square */
   cursor: pointer;
 }
 
