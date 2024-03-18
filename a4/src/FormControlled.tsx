@@ -12,7 +12,7 @@ export default function Form() {
   // local state for "controlled input"
   const [inputValue, setInputValue] = useState(
     selectedTodoId.value
-      ? getTodo(selectedTodoId.value)?.task || "null"
+      ? getTodo(selectedTodoId.value)?.color || "null"
       : ""
   );
 
@@ -24,7 +24,7 @@ export default function Form() {
 
   function handleSubmit(e: Event) {
     if (selectedTodoId.value) {
-      updateTodo(selectedTodoId.value, { task: inputValue });
+      updateTodo(selectedTodoId.value, { color: inputValue });
     } else {
       addTodo(inputValue);
     }

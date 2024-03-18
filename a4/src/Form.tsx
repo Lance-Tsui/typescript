@@ -11,7 +11,7 @@ export default function Form({ editId }: FormProps) {
 
   function handleAdd() {
     // Assuming addTodo expects an object with shape and potentially other data
-    State.addTodo({ shape });
+    State.addTodo(shape);
     State.selectedTodoId.value = null;
   }
 
@@ -20,15 +20,17 @@ export default function Form({ editId }: FormProps) {
     setShape(target.value);
   }
 
+  // Function to handle deletion of the currently selected todo
   function handleDelete() {
-    // Implement delete logic here
-    console.log("Delete action for", editId);
+    State.deleteTodo();
   }
 
+  // Function to handle clearing all completed todos
   function handleClear() {
-    // Implement clear logic here
-    console.log("Clear action");
+    // Filter out the todos that are done and update the todos list
+    State.clearTodo()
   }
+
 
   return (
     <div id="toolbar">

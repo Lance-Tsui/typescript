@@ -11,12 +11,11 @@ import * as State from "./state";
 
 export default function App() {
   const id = State.selectedTodoId.value;
-  const value = id && State.getTodo(id)?.task;
 
   return (
     <>
       <div id="left">
-        <Form editId={id} initialValue={value || ""} />
+        <Form editId={id} />
         <List />
         <Status />
       </div>

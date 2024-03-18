@@ -2,7 +2,7 @@ import { computed, signal } from "@preact/signals";
 
 export type Todo = {
   id: number;
-  task: string;
+  color: string;
   done: boolean;
 };
 
@@ -46,13 +46,13 @@ let uniqueId = 1;
 // model "business logic" (CRUD)
 
 // Create
-export const addTodo = (task: string) => {
+export const addTodo = (color: string) => {
   // GOOD: assigns new array, signal will know
   todos.value = [
     ...todos.value,
     {
       id: uniqueId++,
-      task,
+      color,
       done: false,
     },
   ];
@@ -61,7 +61,7 @@ export const addTodo = (task: string) => {
   //   // the signal won't know something changed (it's not reactive)
   //   todos.value.push({
   //     id: uniqueId++,
-  //     task,
+  //     color,
   //     done: false,
   //   });
 
@@ -71,7 +71,7 @@ export const addTodo = (task: string) => {
 // Update
 export const updateTodo = (
   id: number,
-  todo: { task?: string; done?: boolean }
+  todo: { color?: string; done?: boolean }
 ) => {
   todos.value = todos.value.map((t) =>
     // if todo matches id, then spread it and replace
@@ -82,13 +82,21 @@ export const updateTodo = (
 };
 
 // Delete
-export const deleteTodo = (id: number) => {
+export const deleteTodo = () => {
   // GOOD: assigns new array, signal will know
-  todos.value = todos.value.filter((t) => t.id !== id);
-  // edge case if editing a todo that is deleted
-  if (selectedTodoId.value === id) {
-    selectedTodoId.value = null;
-  }
+  todos.value = todos.value.filter(todo => !todo.done);
+
+  // After deleting completed todos, it's safe to assume no todo is selected,
+  // or you might be deleting the selected todo, so reset the selectedTodoId.
+  selectedTodoId.value = null;
 };
+
+export const clearTodo = () => {
+  // Assigns an empty array, signal will know the todos list has been cleared
+  todos.value = [];
+  // Reset the selectedTodoId as well since there are no todos left to select
+  selectedTodoId.value = null;
+};
+
 
 //#endregion
