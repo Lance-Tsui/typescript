@@ -1,4 +1,5 @@
 import { computed, signal } from "@preact/signals";
+import { hueColor } from "./color";
 
 export type Todo = {
   id: number;
@@ -47,12 +48,13 @@ let uniqueId = 1;
 
 // Create
 export const addTodo = (color: string) => {
+  const newcolor = hueColor();
   // GOOD: assigns new array, signal will know
   todos.value = [
     ...todos.value,
     {
       id: uniqueId++,
-      color,
+      color: newcolor,
       done: false,
     },
   ];

@@ -20,6 +20,13 @@
   opacity: 0.8;
 }
 
+#toolbar button:disabled {
+  background-color: lightgrey; /* Light grey for disabled buttons */
+  color: #6c757d; /* Dark grey text to contrast the light background */
+  cursor: default; /* Ensures cursor doesn't change to pointer */
+  opacity: 0.5; /* Optionally make it look more disabled */
+}
+
 #toolbar select {
   width: 85px; /* Width as per your specification */
   height: 40px; /* Match the button height */

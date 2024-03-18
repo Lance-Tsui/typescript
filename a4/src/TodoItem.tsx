@@ -1,5 +1,4 @@
 import "./TodoItem.css";
-
 import * as State from "./state";
 
 type TodoItemProps = {
@@ -8,13 +7,11 @@ type TodoItemProps = {
 
 export default function TodoItem({ todo }: TodoItemProps) {
   return (
-    <div class="todo" key={todo.id}>
+    <div class="todo" key={todo.id} style={{ backgroundColor: todo.color }}>
       <input
         type="checkbox"
         checked={todo.done}
-        onInput={() =>
-          State.updateTodo(todo.id, { done: !todo.done })
-        }
+        onInput={() => State.updateTodo(todo.id, { done: !todo.done })}
       />
     </div>
   );

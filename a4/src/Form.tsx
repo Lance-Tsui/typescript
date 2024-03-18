@@ -34,15 +34,15 @@ export default function Form({ editId }: FormProps) {
 
   return (
     <div id="toolbar">
-      <button onClick={handleAdd}>Add</button>
+      <button onClick={handleAdd} disabled={State.num.value == 25}>Add</button>
       <select value={shape} onChange={handleShapeChange}>
         <option value="Square">Square</option>
         <option value="Star">Star</option>
         <option value="Bullseye">Bullseye</option>
         <option value="Cat">Cat</option>
       </select>
-      <button onClick={handleDelete}>Delete</button>
-      <button onClick={handleClear}>Clear</button>
+      <button onClick={handleDelete} disabled={State.numDone.value == 0}>Delete</button>
+      <button onClick={handleClear} disabled={State.num.value == 0}>Clear</button>
     </div>
   );
 }
