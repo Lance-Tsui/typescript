@@ -35,9 +35,16 @@ export default function Info() {
     <div id="info">
       {numDone.value === 0 ? "Select One" : numDone.value === 1 ? (
         <div className="editor">
-          <div className="display-area">
-            {/* Render the selected square here */}
-          </div>
+      <div className="display-area">
+        {/* Render the square with the background color based on the hue value */}
+        <div
+          style={{
+            width: '100px',
+            height: '100px',
+            backgroundColor: `hsl(${hue}, 100%, 50%)`, // Use the hue value for the background color
+          }}
+        ></div>
+      </div>
           <div className="form">
             <label>
               Hue:
