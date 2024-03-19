@@ -100,5 +100,8 @@ export const clearTodo = () => {
   selectedTodoId.value = null;
 };
 
+export const getSelected = (): Todo | undefined => {
+  return todos.value.find(todo => todo.done === true);
+};
 
 //#endregion

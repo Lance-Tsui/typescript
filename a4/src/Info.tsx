@@ -1,20 +1,35 @@
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import "./Info.css";
-import { todos, selectedTodoId, numDone, getTodo } from "./state";
+import { selectedTodoId, todos, updateTodo, numDone, getSelected } from "./state";
+import { getFixedColor, getHue } from './color';
 
 export default function Info() {
-  // 使用useState来存储选中的颜色值
-  const [selectedColor, setSelectedColor] = useState('');
+  const [hue, setHue] = useState('');
 
   useEffect(() => {
-    const todo = getTodo(selectedTodoId.value); // 使用getTodo函数获取当前选中的todo项
-    if (todo) {
-      setSelectedColor(todo.color); // 如果找到了todo，就更新selectedColor状态
-    } else {
-      setSelectedColor(''); // 否则，重置selectedColor
+    if (numDone.value === 1) {
+      const todo = getSelected()
+      console.log(todo?.color)
+      if (todo) {
+        setHue(getHue(todo.color.toString())); // Assuming todo.color is a string that represents the hue
+      }
     }
-  }, [selectedTodoId.value]); // 依赖于selectedTodoId的变化
+  }, [selectedTodoId.value, todos.value]);
+
+  const handleHueChange = (e) => {
+    const value = e.target.value;
+    const numValue = Number(value);
+    if (value === '' || numValue < 0 || numValue > 360) {
+      e.target.style.borderColor = 'red';
+    } else {
+      e.target.style.borderColor = ''; // Reset to default
+      setHue(value); // Update internal hue state
+      if (numDone.value === 1 && numValue >= 0 && numValue <= 360) {
+        updateTodo(getSelected().id, { color: getFixedColor(numValue.toString()) }); // Ensure this function call is correct
+      }
+    }
+  };
 
   return (
     <div id="info">
@@ -26,7 +41,7 @@ export default function Info() {
           <div className="form">
             <label>
               Hue:
-              <input type="number" value={selectedColor} min="0" max="360" />
+              <input type="number" value={hue} onChange={handleHueChange} min="0" max="360" />
             </label>
           </div>
         </div>
