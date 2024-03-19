@@ -1,9 +1,49 @@
-/* styles for Info */
+/* info.css */
 
 div#info {
   background-color: whitesmoke;
   width: 33.33vw;
+  height: 100vh; /* Adjust height as needed */
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative; /* For absolute positioning of children */
+}
+
+.editor {
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  border: 1px solid grey;
+  padding: 10px;
+}
+
+.display-area {
+  flex-grow: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Ensure the square stays within boundaries */
+  margin: 10px;
+  border-bottom: 1px solid grey; /* Separate display area and form */
+}
+
+.form {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+input:focus {
+  outline: 2px solid blue; /* Change 'blue' to any specific color code if needed */
+}
+
+input:focus.input-error {
+  outline: 2px solid red; /* Change 'red' to any specific color code if needed */
+}
+
+.input-error {
+  border: 2px solid red;
 }
