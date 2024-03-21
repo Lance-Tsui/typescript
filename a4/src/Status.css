@@ -22,3 +22,15 @@ div#status {
     justify-content: right; /* Centers the text horizontally */
     margin-right: 10px;
   }
+
+  .status-buttons {
+    display: flex;
+    justify-content: center; /* Centering the buttons horizontally */
+    align-items: center; /* Centering the buttons vertically */
+    gap: 10px; /* Spacing between the buttons */
+  }
+
+  .status-button {
+      width: 80px; /* Button width as requested */
+      height: 30px;
+  }

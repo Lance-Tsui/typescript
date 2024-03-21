@@ -22,6 +22,10 @@ export default function Status() {
   return (
     <div id="status">
       <div class="status-columnleft">{leftText}</div>
+      <div className="status-buttons">
+        <button className="status-button">Undo</button>
+        <button className="status-button">Redo</button>
+      </div>
       <div class="status-columnright">{rightText}</div>
     </div>
   );
