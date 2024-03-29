@@ -23,3 +23,7 @@ Known bugs:
 When you edit the hue and change the hue value, you have to click again to do edits 
 
 I forgot to implement the initial 8 squares when the app first runs
+
+ASSN 4:
+
+use of copilot and other sources: no
